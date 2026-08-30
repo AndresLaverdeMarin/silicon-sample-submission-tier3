@@ -1,0 +1,41 @@
+{
+  "team_id": "team_27",
+  "team_name": "team_27",
+  "contact": "andreslaverdemarin@gmail.com",
+  "creators": [
+    {
+      "name": "Laverde Marin, Andres",
+      "affiliation": "Joint Research Centre, European Commission",
+      "orcid": "0000-0002-9578-4412"
+    },
+    {
+      "name": "De Marzo, Giordano",
+      "affiliation": "University of Konstanz",
+      "orcid": "0000-0002-3127-5336"
+    }
+  ],
+  "abstract": "Tier-3 average treatment effects for the Silicon Sample Benchmark. This entry does not simulate respondents. For each of the 13 outcomes, one local open-weights model reads all 16 intervention texts in a single listwise prompt and forecasts the average treatment effect of each one against control. 13 prompts x 8 draws = 104 calls. Model Qwen/Qwen3.8-27B, run locally with vLLM. Results are exploratory: the configuration was selected after an unregistered search.",
+  "license": "CC-BY-4.0",
+  "tier": 3,
+  "entry": "primary",
+  "approach_family": "direct effect forecast, not a per-respondent simulation; a single local open-weights model is prompted once per OUTCOME and returns, in one listwise response, the ATE of all 16 interventions for that outcome; the 16 stimulus texts and the codebook item wording and scales are given in the prompt; zero-shot; no persona pool, no synthetic respondents, no second model",
+  "models": [
+    "Qwen/Qwen3.8-27B"
+  ],
+  "code_repository": "https://github.com/AndresLaverdeMarin/silicon-sample-submission-tier3",
+  "code_doi": null,
+  "disclosure_class": "A",
+  "escrow_doi": null,
+  "zenodo_doi": null,
+  "prediction_files": [
+    {
+      "file": "predictions/team_27_T3_primary_v1.csv",
+      "sha256": "e6e246bea5593f18ac9d7714b1a702fd1d3f56c83a252725aea5a3646172c578"
+    }
+  ],
+  "coverage": {
+    "interventions": 16,
+    "outcomes": 13
+  },
+  "blinding_attestation": true
+}

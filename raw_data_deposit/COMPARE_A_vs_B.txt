@@ -1,0 +1,22 @@
+
+COMPARE  A=A_pop_off  B=B_pop_on
+------------------------------------------------------------------------
+cells in both            208
+Pearson r, all cells     +0.9864
+mean |A - B|             0.2258
+
+per outcome              r        mean|A-B|   mean A   mean B
+  behavior_mean         +0.9879      0.1273    1.403    1.291
+  belief_post           +0.9979      0.0883    2.251    2.311
+  concern_mean          +0.9338      0.4266    2.087    2.075
+  distrust_post         +0.9780      0.9258   -4.245   -3.413
+  donation_ams          +0.9980      0.0079    0.219    0.225
+  funding_perceptions   +0.9404      0.2891    1.284    1.221
+  inst_trust_mean       +0.9987      0.0203    1.505    1.484
+  newsletter_signup     +0.9639      0.0025    0.017    0.018
+  policy_general        +0.9886      0.1891    2.119    1.967
+  policy_role_mean      +0.9899      0.1773    1.880    1.927
+  policy_specific_mean  +0.9645      0.1266    2.019    1.908
+  trust_multidimensional+0.9622      0.4594    2.843    2.410
+  trust_post            +0.9960      0.0953    3.155    3.091
+

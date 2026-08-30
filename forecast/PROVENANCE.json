@@ -1,0 +1,72 @@
+{
+ "what": "Provenance of every file of forecast/, so the pipeline can be rebuilt and audited without any other checkout.",
+ "self_contained": true,
+ "note": "forecast/ reads only survey/questionnaire.txt, codebook.csv and scripts/lib/submission_spec.R of THIS repository, plus the one copied quota file listed below. It makes no network call and no paid API call.",
+ "copied_from_outside_this_repository": [
+  {
+   "file": "forecast/core.py",
+   "source": "/home/jovyan/LLMmegastudy/modelbench/structured_forecast.py",
+   "source_sha256": "fe4f71e605409286622a9cddd5e6bb7bbf7ff930488aebe5fec9b7e454728f65",
+   "kept": "wrap, Opt, FRAMINGS, ANCHOR_LINE, render, parse_pointwise, parse_listwise, build_work, max_tokens_for, provenance",
+   "removed": "the OpenRouter transport, the cost model, the Ashokkumar archive loader, the scorer, the contamination probes",
+   "changed": "render() now reads three optional slot functions from the study spec: ask_units, scale_top and scale_bottom. With their default values the rendered text is unchanged. forecast/tests/test_render_parity.py proves it."
+  },
+  {
+   "file": "forecast/run_vllm.py",
+   "source": "/home/jovyan/LLMmegastudy/modelbench/structured_forecast_vllm.py",
+   "source_sha256": "56886d2dc5ccc1d839bef6c641119919ead1b4282de8070ce702fcc2ba8eb79c",
+   "kept": "the vLLM offline engine settings, the chat template with enable_thinking=False, the SamplingParams rule, the record shape of forecast.jsonl, the meta file",
+   "removed": "the scorer and the archive-specific fields"
+  },
+  {
+   "file": "forecast/materials/quotas_18000.csv",
+   "source": "/home/jovyan/silicon-sample-submission/population/quotas_18000.csv",
+   "source_sha256": "1383a768d5f4e3f8a2c22ccf18b1899eb6fbc7c3716cdfd18ccb3befb98e8028",
+   "what": "The benchmark preregistration's quota table, projected to N = 18,000. Rows are gender x age band and gender x race/ethnicity. It is the ONLY source of every number in the population block of variant B."
+  }
+ ],
+ "generated_inside_this_repository": [
+  {
+   "file": "forecast/materials/stimuli/*.txt",
+   "made_by": "forecast/extract_materials.py",
+   "source": "survey/questionnaire.txt, the 16 '### <title>' sections under the CONDITION heading. control.txt is not written, because the control group reads no message."
+  },
+  {
+   "file": "forecast/materials/outcomes.json",
+   "made_by": "forecast/extract_materials.py",
+   "source": "codebook.csv for the item wording and the anchors; scripts/lib/submission_spec.R lines 71-78 for the 13 outcome names; codebook.csv:53 for the reverse coding of funding_perceptions; survey/questionnaire.txt lines 819-856 for the two behavioural items."
+  },
+  {
+   "file": "forecast/materials/MANIFEST.json",
+   "made_by": "forecast/extract_materials.py",
+   "source": "sha256 of every input and every output of that script."
+  }
+ ],
+ "measured_facts_that_the_code_depends_on": [
+  {
+   "claim": "listwise beats pointwise",
+   "value": "Qwen3.8-27B, Broockman archive +0.3468 against +0.1450 Pearson r; Voelkel archive +0.6558 against +0.5795",
+   "measured": "2026-08-29, /home/jovyan/LLMmegastudy/modelbench/output/runs"
+  },
+  {
+   "claim": "temperature does not matter, so the arm-order ensemble carries the variance",
+   "value": "0 of 20 paired tests significant; at temperature 0 a reshuffle of the arm order alone moves the predictions to r = 0.57-0.73 against each other",
+   "measured": "2026-08-29 and 2026-08-30"
+  },
+  {
+   "claim": "vLLM needs gdn_prefill_backend=triton on this machine",
+   "value": "the default FlashInfer GDN prefill kernel is built just in time and needs nvcc, which this machine does not have; the engine dies at the first prefill",
+   "measured": "2026-08-30"
+  },
+  {
+   "claim": "the chat template must set enable_thinking=False",
+   "value": "without it the model writes <think>... and 88% of the answers never reach a number",
+   "measured": "2026-08-30"
+  },
+  {
+   "claim": "characters for each token, Qwen3.8-27B tokenizer",
+   "value": "3.79, over 12,929,556 characters of probe prompts",
+   "measured": "2026-08-29"
+  }
+ ]
+}

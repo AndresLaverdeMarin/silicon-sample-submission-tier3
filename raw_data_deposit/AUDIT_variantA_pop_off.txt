@@ -1,0 +1,37 @@
+
+AUDIT  A_pop_off
+------------------------------------------------------------------------
+rows                     208
+conditions               16
+outcomes                 13
+missing value            0
+
+                          n      min      max     mean   mean|x|  neg
+  11 slider outcomes, points   176  -6.9750   5.3500   1.4819   2.3496   26
+  donation_ams, dollars         16  -0.1188   0.4437   0.2191   0.2340    1
+  newsletter_signup, proportion  16  -0.0118   0.0333   0.0166   0.0181    1
+
+  ok    newsletter_signup largest |ate| = 0.0333, which is a plausible proportion.
+  ok    donation_ams largest |ate| = 0.444 dollars on a 0-10 scale.
+
+  trust_post vs distrust_post, sign DISAGREES for 15/16 texts
+     A trust-building text must raise trust_post and lower distrust_post.
+     Most of the 16 texts should therefore disagree in sign.
+       ok   Consensus                      trust  +4.500   distrust  -5.312
+       ok   Corporate reliance             trust  +3.625   distrust  -5.537
+       ok   Extreme weather predictions    trust  +3.375   distrust  -6.062
+       ok   Former skeptics                trust  +4.375   distrust  -6.425
+       ok   Funding                        trust  +2.163   distrust  -1.562
+       ok   High public trust              trust  +4.412   distrust  -5.912
+       ok   Interview Prof. Maraun         trust  +2.837   distrust  -3.562
+       ok   Interview Prof. Sebille        trust  +2.475   distrust  -2.938
+       ok   Measurement & modeling (1)     trust  +1.512   distrust  -1.875
+       ok   Measurement & modeling (2)     trust  +1.413   distrust  -2.550
+       ok   Model accuracy                 trust  +4.662   distrust  -4.650
+       ok   Oil industry misinformation    trust  +5.350   distrust  -6.975
+       ok   Peer-review                    trust  +2.825   distrust  -5.287
+       ok   Portrait Prof. Cherry          trust  +2.062   distrust  -3.938
+       ok   Scientist community helpers    trust  +3.850   distrust  -5.950
+       SAME  Social justice                 trust  +1.050   distrust  +0.625
+
+  draws for each cell      min 8  max 8  mean 8.00

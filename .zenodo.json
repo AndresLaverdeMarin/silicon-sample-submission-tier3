@@ -1,0 +1,52 @@
+{
+  "upload_type": "software",
+  "title": "Silicon Sample Benchmark — Tier 3 (direct effect forecast) submission (team team_27)",
+  "version": "1.0-t3",
+  "language": "eng",
+  "access_right": "open",
+  "license": "CC-BY-4.0",
+  "creators": [
+    {
+      "name": "Laverde Marin, Andres",
+      "affiliation": "Joint Research Centre, European Commission",
+      "orcid": "0000-0002-9578-4412"
+    },
+    {
+      "name": "De Marzo, Giordano",
+      "affiliation": "University of Konstanz",
+      "orcid": "0000-0002-3127-5336"
+    }
+  ],
+  "description": "<p>Tier-3 average treatment effects for the Silicon Sample Benchmark. This entry does not simulate respondents. For each of the 13 outcomes, one local open-weights model reads all 16 intervention texts in a single listwise prompt and forecasts the average treatment effect of each one against control. 13 prompts x 8 draws = 104 calls. Model Qwen/Qwen3.8-27B, run locally with vLLM. Results are exploratory: the configuration was selected after an unregistered search.<\/p>",
+  "keywords": [
+    "Silicon Sample Benchmark",
+    "silicon sampling",
+    "large language models",
+    "computational social science",
+    "survey methodology",
+    "public opinion",
+    "climate communication",
+    "treatment effect prediction"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://janpfander.github.io/llm_predictions_megastudy/",
+      "relation": "isPartOf",
+      "scheme": "url",
+      "resource_type": "publication-other"
+    },
+    {
+      "identifier": "https://janpfander.github.io/llm_predictions_megastudy/amendment_preregistration.html",
+      "relation": "references",
+      "scheme": "url",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "identifier": "https://github.com/AndresLaverdeMarin/silicon-sample-submission-tier3",
+      "relation": "isCompiledBy",
+      "scheme": "url",
+      "resource_type": "software"
+    }
+  ],
+  "notes": "Team team_27. Disclosure class A."
+}

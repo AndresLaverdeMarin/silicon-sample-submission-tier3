@@ -1,0 +1,117 @@
+{
+ "made_by": "forecast/extract_materials.py",
+ "inputs": [
+  {
+   "path": "survey/questionnaire.txt",
+   "sha256": "b9f5ab1ce8566fca5684aa6aaa66b6ed25eb6918ccdee0ba6d800296105a3e3e",
+   "bytes": 75614
+  },
+  {
+   "path": "codebook.csv",
+   "sha256": "345df300b31eccfa83ef99f7fe96e5d6046c235704fdbde135f66ccb3b89004f",
+   "bytes": 11276
+  },
+  {
+   "path": "scripts/lib/submission_spec.R",
+   "sha256": "7caf9196ee4b337314f09d73767c18a38a6242dcf81ebc1e71c52aa0edb90f0a",
+   "bytes": 5366
+  }
+ ],
+ "outputs": [
+  {
+   "path": "forecast/materials/outcomes.json",
+   "sha256": "a98caa2ae3e1c4013ebee389acb4e2d275c907ccb4148e09e3953ed17ae07505",
+   "bytes": 14541
+  },
+  {
+   "path": "forecast/materials/quotas_18000.csv",
+   "sha256": "1383a768d5f4e3f8a2c22ccf18b1899eb6fbc7c3716cdfd18ccb3befb98e8028",
+   "bytes": 390
+  },
+  {
+   "path": "forecast/materials/stimuli/consensus.txt",
+   "sha256": "f289b177bbd2a090a2c006d766c6502ea3eb32963ae3a31130da067d619a9322",
+   "bytes": 3595
+  },
+  {
+   "path": "forecast/materials/stimuli/corporate_reliance.txt",
+   "sha256": "e562c4df07d569b65bf15e80c1197365c466d742a3853af158a3475f339bc460",
+   "bytes": 1843
+  },
+  {
+   "path": "forecast/materials/stimuli/extreme_weather_predictions.txt",
+   "sha256": "6233027a709c3ea5c86e22a86693ecdfca559f039c3ba9d11b7bd6315243b0b7",
+   "bytes": 2213
+  },
+  {
+   "path": "forecast/materials/stimuli/former_skeptics.txt",
+   "sha256": "905a0c03197ea61ba36791003eda4f974636298e633a719dc6f2e7b7d4fb53c0",
+   "bytes": 2926
+  },
+  {
+   "path": "forecast/materials/stimuli/funding.txt",
+   "sha256": "0305b8dfdb3bf41e07f1716d3291151a5482238d55cd1554c654cb7ec5247905",
+   "bytes": 4590
+  },
+  {
+   "path": "forecast/materials/stimuli/high_public_trust.txt",
+   "sha256": "635a2ef1fa075bc0969fcbec12ae7cdb2d7f75831276f6eec53160aa702517f0",
+   "bytes": 788
+  },
+  {
+   "path": "forecast/materials/stimuli/interview_prof_maraun.txt",
+   "sha256": "5e3965c868b06aaf40d6497911e462cb3417867af0f8b75fcc847f6789cc487a",
+   "bytes": 1846
+  },
+  {
+   "path": "forecast/materials/stimuli/interview_prof_sebille.txt",
+   "sha256": "b76c71bccdbc1650956cdc88b468d03ac18da0bdc06b47d07540e5cad460c730",
+   "bytes": 1368
+  },
+  {
+   "path": "forecast/materials/stimuli/measurement_modeling_1.txt",
+   "sha256": "b90647bbdee826cc539f485859c1f3a71d3ff2f59a73e3cd40e94467c3de41a4",
+   "bytes": 2656
+  },
+  {
+   "path": "forecast/materials/stimuli/measurement_modeling_2.txt",
+   "sha256": "b6644994788985fb524d341cb4e83a76a3139ba4dfc7ff94d6cbbd47aa79be5f",
+   "bytes": 1545
+  },
+  {
+   "path": "forecast/materials/stimuli/model_accuracy.txt",
+   "sha256": "7ca70dbc9036417c32c268b7650f92c8574ec473fd15974c516b28732d151a21",
+   "bytes": 2420
+  },
+  {
+   "path": "forecast/materials/stimuli/oil_industry_misinformation.txt",
+   "sha256": "207e9d6e634a725154e48d5668ee224ba028be0399e110b0e02bbad27e7313ee",
+   "bytes": 5035
+  },
+  {
+   "path": "forecast/materials/stimuli/peer_review.txt",
+   "sha256": "f3ba5fa77686631050e8ef5b58f625688d34c1edd5c5873e523ef7db220022bc",
+   "bytes": 1348
+  },
+  {
+   "path": "forecast/materials/stimuli/portrait_prof_cherry.txt",
+   "sha256": "baddb9c6864ada75d08bcdb7dc601894bbbb99aa95850a8aaaf6136f9d64dc44",
+   "bytes": 1761
+  },
+  {
+   "path": "forecast/materials/stimuli/scientist_community_helpers.txt",
+   "sha256": "49ad70d90e25291d49d09ec98c80180296c2b850b29888167a903de71003d9b2",
+   "bytes": 2419
+  },
+  {
+   "path": "forecast/materials/stimuli/social_justice.txt",
+   "sha256": "a7e5ae05db7b458c824639040d0ca4c5c7cca0f25b286a366c9e94d334cdf04d",
+   "bytes": 1369
+  },
+  {
+   "path": "forecast/materials/stimuli_index.json",
+   "sha256": "8be0da5d39e55948d09d272b3ab41bef293c9039448a8d766220302e2678d668",
+   "bytes": 807
+  }
+ ]
+}
