@@ -49,6 +49,12 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 > | **J.2** | **A decision on the four preregistration breaches.** They are declared in full under J.2. The choice is to keep the entry with the declaration attached, or to re-run the preregistered test as written. | the members named in 0.1 |
 > | **K.3** | **A decision on the spend approval gap.** $4.0108 was spent on paid calls and no approval from David is recorded on disk. It affects no submitted value. | the members named in 0.1 |
 >
+> One more item needs a file copy, not a decision:
+>
+> | Item | What is missing | Who must supply it |
+> |---|---|---|
+> | **K.2** | **`raw_data_deposit/` still holds six files of the superseded first pass.** They must be replaced with the files of `forecast/runs/2026-08-30_B_pop_on_v2/` and `forecast/runs/2026-08-30_A_pop_off_v2/`, or removed, before the Zenodo release. No submitted value comes from them. | the members named in 0.1 |
+>
 > Every other item is closed against a file. `metadata.json` now holds the real team, the real model
 > id and the SHA-256 of the submitted prediction file.
 >

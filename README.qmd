@@ -100,6 +100,12 @@ on disk — it affects no submitted value, because the submitted values cost
 $0.00)**. They are marked in place. Nobody signed anything on the team's
 behalf.
 
+**One more item needs a file copy, not a decision.** `raw_data_deposit/` still
+holds six files of the superseded first pass. Replace them with the files of
+`forecast/runs/2026-08-30_B_pop_on_v2/` and
+`forecast/runs/2026-08-30_A_pop_off_v2/`, or remove them, before the Zenodo
+release. No submitted value comes from them. See `registration.md` item K.2.
+
 ## What each folder holds
 
 | Path | Owner | Content |
