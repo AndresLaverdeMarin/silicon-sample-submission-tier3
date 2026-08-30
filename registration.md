@@ -300,12 +300,26 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   (difference +0.0381, t = +0.47, p = 0.6735, n = 4 — not significant, but the paraphrase run could
   not produce a single negative prediction across all 40 arms, and the real-text run could). See
   `docs/EVIDENCE.md` section 9.
-  **State-contingent content.** The `Extreme weather predictions` arm is state-adaptive in the real
-  study. A direct forecast has no respondent and therefore no state. The prompt sends the generic
-  intro and the study's own fallback case. The extracted stimulus file
-  `forecast/materials/stimuli/extreme_weather_predictions.txt` (11,523 bytes, 143 lines) opens with
-  an explicit note that the arm is state-adaptive, gives the full state-to-case mapping, and gives
-  all four case texts, so an auditor can see exactly what the model was and was not shown.
+  **State-contingent content.** `Extreme weather predictions` is the only state-adaptive arm of the
+  16. The benchmark's file for it is a kit for the survey programmer, not one message: its own first
+  line says that each participant sees only ONE version, and says not to feed the whole block
+  verbatim. The raw block is 11,435 characters and holds authoring scaffolding, a list of 51 states,
+  the state-to-case map, all four case texts, and a reference list marked
+  "[not displayed to participants]".
+  **The first pass sent the whole block, and that was a measurement error.** The 16 arm texts then
+  came to 47,032 characters, and this one arm was 24.5 per cent of them. Most of it was instruction
+  to the programmer that no participant ever read.
+  **We now send what one participant read.** A direct forecast has no respondent and therefore no
+  state, so `forecast/extract_materials.py::reduce_state_adaptive` renders the **modal**
+  participant: one intro paragraph, then **Case 1**, the flood text, which covers 27 states and the
+  District of Columbia — the largest share of the sample. One added line says the message was
+  tailored to the reader's home state, and that other readers got a wildfire text or a
+  cold-and-snow text. The extracted stimulus file
+  `forecast/materials/stimuli/extreme_weather_predictions.txt` is now **2,213 bytes, 9 lines**, or
+  5.9 per cent of the 37,722 characters of arm text. The reduction is documented in the comment
+  block above `reduce_state_adaptive`, and in `docs/METHOD.md` section 3.4. **Both variants were run
+  again after the reduction**; every submitted value comes from a run after it. The 15 other arms
+  are sent verbatim and unmodified.
 - **E.2 Survey walk-through** — one item/call vs blocks vs whole survey; context carry-over; item/option ordering & randomization; scale display; attention/comprehension handling:
   **One call for each OUTCOME, holding all 16 interventions.** 13 calls make one full draw; 8 draws
   make 104 calls. There is no respondent walking through a survey, so there is no context
@@ -341,7 +355,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   engine's own batching non-determinism. All raw generations are deposited (K.2), so no result
   depends on a rerun.
   Confirmed by the submitted run: `samples 8`, `seed 1`, `seed_rule "seed + sample index"`,
-  `framings 1`, `calls 104` (`forecast/runs/B_pop_on/forecast.meta.json`).
+  `framings 1`, `calls 104` (`forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`).
 - **F.2 Aggregation rule** — how multiple generations become submitted values (mean/median/mode/first/sampled/…):
   **The unweighted arithmetic mean over the draws that parsed**, computed for each (intervention,
   outcome) pair, by `structured_forecast.py::write_predictions`. No median, no trimming, no
@@ -379,11 +393,18 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **-0.1355 to +0.1215** (difference +0.2570, t = +2.03, p = 0.0494). The bug never touched a
   submitted value: it was found and fixed on public data, on 2026-08-30, before this entry was
   generated. Full account: `docs/EVIDENCE.md` section 6.
-  **Measured on the submitted run: 1,664 of 1,664 arms parsed. Parse rate 100.0 per cent.** Every
-  one of the 208 (intervention, outcome) pairs rests on the full **8 draws** — minimum 8, maximum 8,
-  mean 8.00 (`forecast/runs/B_pop_on/forecast.meta.json` and
-  `raw_data_deposit/AUDIT_primary_B_pop_on.txt`). The control variant A also parsed 1,664 of 1,664.
-  No cell was filled, no cell was dropped, and no draw was re-asked.
+  **Measured on the submitted run: 1,648 of 1,664 arms parsed. Parse rate 99.0 per cent.**
+  **Exactly one call of the 104 failed**: the `donation_ams` outcome, draw 4. The model answered
+  with prose reasoning and never wrote the 16 required lines, so no labelled line was found and the
+  whole call was dropped. The record is in
+  `forecast/runs/2026-08-30_B_pop_on_v2/forecast.jsonl` with `parse_mode: unparsed`, `n_parsed 0`,
+  and the first 400 characters of the raw reply. **That one failure is the whole of the 16 missing
+  arm-answers.** The 16 `donation_ams` cells therefore rest on **7** draws and the other 192 cells
+  rest on **8** — minimum 7, maximum 8, mean 7.92
+  (`forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json` and
+  `forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt`). The control variant A lost two calls the same
+  way, `donation_ams` and `newsletter_signup`, both draw 4: 1,632 of 1,664 arms, 98.1 per cent, mean
+  7.85 draws. No cell was filled, no cell was dropped, and no draw was re-asked.
   **The direction rule for this study.** Every prompt is written on the same scale the submission
   uses, so `scale_flip` is `False` for all 13 outcomes and no number is turned. The flag is still
   computed and written into every record, so the claim is auditable and not merely asserted.
@@ -391,14 +412,15 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   so the prompt prints that item **with its anchors already swapped**, and a positive effect means
   more support for climate research funding.
   **The audit `make check` cannot make.** `forecast/build_predictions.py` prints three checks that
-  the organizers' validator does not: the units of `newsletter_signup` (largest |ate| 0.0339, a
-  plausible proportion), the units of `donation_ams` (largest |ate| 0.448 dollars on a 0-10 scale),
+  the organizers' validator does not: the units of `newsletter_signup` (largest |ate| 0.0288, a
+  plausible proportion), the units of `donation_ams` (largest |ate| 0.400 dollars on a 0-10 scale),
   and the sign agreement between `trust_post` and `distrust_post` (15 of 16 texts disagree in sign,
-  as a trust-building text should; `Social justice` is the one that does not).
-  Source: `raw_data_deposit/AUDIT_primary_B_pop_on.txt`.
+  as a trust-building text should; `Social justice` is the one that does not, unchanged from the
+  first pass). Source: `forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt`.
   **The submitted values, from `predictions/team_27_T3_primary_v1.csv`:** 208 rows, no missing
-  value, `ate` from **-5.7870 to +5.2500**, mean **+1.2706**. 26 of the 176 slider values are
-  negative.
+  value, `ate` from **-5.100 to +4.975**, mean **+1.289**. 27 of the 208 values are negative, 25 of
+  them among the 176 slider values. `newsletter_signup` runs from -0.0029 to +0.0288, a change of a
+  0-1 proportion. `donation_ams` runs from -0.0640 to +0.4000 dollars.
 - **G.3 Calibration corrections** — any post-hoc scaling/shifting/debiasing and exactly what data it was fit on (cross-ref H/I):
   **None.** No scaling, no shifting, no debiasing, no clamping, no rounding beyond the decimal
   precision of the CSV, and no reweighting. The submitted `ate` values are the means of parsed model
@@ -642,25 +664,34 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   index, the seed, the arm order, the parse mode, and every value both **before** and **after** the
   sign flip. Where parsing was not complete, the record also holds the first 400 characters of the
   raw reply.
-  **Deposited in this repository, two times.** The run directory
-  `forecast/runs/B_pop_on/` holds the working copy. `raw_data_deposit/` holds the same files under
-  names that say which variant they are, next to the control variant A and the two audits.
+  **Deposited in this repository.** The run directory
+  `forecast/runs/2026-08-30_B_pop_on_v2/` holds the raw log of the submitted run.
+  `forecast/runs/2026-08-30_A_pop_off_v2/` holds the raw log of the control.
 
   | File | Records | Bytes | SHA-256 |
   |---|---|---|---|
-  | `raw_data_deposit/forecast_primary_B_pop_on.jsonl` — **the submitted run** | 104 | 402,903 | `0f083c4ea5a708ec9bf35f302ad1e4cdf5be2243e38d05332c98feaa87832c0d` |
-  | `raw_data_deposit/forecast_variantA_pop_off.jsonl` — the control | 104 | 402,937 | `50324d7e2b7b0b8dce7ec7f9c76d86f1abad3ef9744ef38a7a465d00bdd7555c` |
-  | `raw_data_deposit/forecast.meta.json` — both runs, one record | — | 9,112 | `f28e948ac87698e5b2d1ccaf034056ec00713da1739c40cbf42399269df082d2` |
-  | `raw_data_deposit/AUDIT_primary_B_pop_on.txt` | — | 2,121 | `0f1f205c7b869b9408b11be7e5a871ad9d018af311c831cdca0c7ac20ea4aac8` |
-  | `raw_data_deposit/AUDIT_variantA_pop_off.txt` | — | 2,122 | `983cd38b685b061ceef406f84b41e58970d9ccb39cd7c80f8db313a407a47f9b` |
-  | `raw_data_deposit/COMPARE_A_vs_B.txt` | — | 1,071 | `765dacf0acae3d2b31e83b6c0501bea8cb8ff1a5ba62afbabfdfadf648262e6c` |
-  | `raw_data_deposit/variantA_pop_off_T3_ate.csv` — the control's 208 rows | 208 | 8,786 | `9c71829b30a39e61bf40dc9b19de6f19f45ffbcd53a862fe40fe5c96bcb0682d` |
-  | `predictions/team_27_T3_primary_v1.csv` — **the submitted values** | 208 | 8,786 | `6d6e5a4c9507e11e66a4bef5fa1e930f4d95a3cb87e30386addcb93b13269a53` |
+  | `forecast/runs/2026-08-30_B_pop_on_v2/forecast.jsonl` — **the submitted run** | 104 | 403,275 | `c5ee9d3665e6fe366f6f90da287ae2505abc1b81d66e96c757ad8de8989efd17` |
+  | `forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json` | — | 4,892 | `2e64934b4306237d28e78357cd14479a56d065ec4a97f6ee99cd6c9cbf8cee2a` |
+  | `forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt` | — | 2,135 | `efe5cdc1195a1410e22b79da45253288d83bf8e90f76ea89bbdca5b01a8e7eb4` |
+  | `forecast/runs/2026-08-30_A_pop_off_v2/forecast.jsonl` — the control | 104 | 403,656 | `c1865d7fb5a0a2263144a1e0c8ab7bb12ae49c06055f921cdccf8015faab3710` |
+  | `forecast/runs/2026-08-30_A_pop_off_v2/forecast.meta.json` | — | 4,893 | `95a39f6772212d44b00b7598168876fafa591d3f2684eb20e19bf468dd367722` |
+  | `forecast/runs/2026-08-30_A_pop_off_v2/AUDIT.txt` | — | 2,135 | `e08eca0eba0ee74af4167abafd5392b540260c9e15a83af432bffeee42aa2c84` |
+  | `raw_data_deposit/variantA_pop_off_T3_ate.csv` — the control's 208 rows | 208 | 8,787 | `631f4e859d0f1f8514e301e1ff0c0613d4447233f6375898a4a2e9b695ddb961` |
+  | `predictions/team_27_T3_primary_v1.csv` — **the submitted values** | 208 | 8,785 | `e6e246bea5593f18ac9d7714b1a702fd1d3f56c83a252725aea5a3646172c578` |
 
-  `forecast/runs/B_pop_on/forecast.jsonl` is byte for byte the same file as
-  `raw_data_deposit/forecast_primary_B_pop_on.jsonl`; the SHA-256 above covers both. Every size and
-  hash was read from the file, not copied from a record. The prediction file's hash is also in
-  `metadata.json`, field `prediction_files`, written by `make manifest` and checked by `make check`.
+  Every size and hash was read from the file, not copied from a record. The prediction file's hash
+  is also in `metadata.json`, field `prediction_files`, written by `make manifest` and checked by
+  `make check`.
+
+  **OPEN — `raw_data_deposit/` still holds the superseded first pass.** Its
+  `forecast_primary_B_pop_on.jsonl`, `forecast_variantA_pop_off.jsonl`, `forecast.meta.json`,
+  `AUDIT_primary_B_pop_on.txt`, `AUDIT_variantA_pop_off.txt` and `COMPARE_A_vs_B.txt` are copies of
+  the runs made **before** the `Extreme weather predictions` arm was cut (`docs/METHOD.md`
+  section 3.4). **No submitted value comes from them.** Only
+  `raw_data_deposit/variantA_pop_off_T3_ate.csv` was rebuilt from the rerun. The six stale files
+  must be replaced with the files of `forecast/runs/2026-08-30_B_pop_on_v2/` and
+  `forecast/runs/2026-08-30_A_pop_off_v2/` before the Zenodo release, or removed. The table above
+  names the files that are correct today.
 
   **Why the control is deposited and not submitted.** `scripts/lib/check_lib.R` lines 119-124: one
   repository holds one entry. Variant A is the control condition of the population-block test.
@@ -668,37 +699,40 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **The submitted values cost $0.00 and made 0 API calls.** The model runs on the team's own H100
   80GB, on local weights, with `HF_HUB_OFFLINE=1`.
 
-  | Quantity | Submitted run `B_pop_on` | Control variant `A_pop_off` |
+  | Quantity | Submitted run `2026-08-30_B_pop_on_v2` | Control variant `2026-08-30_A_pop_off_v2` |
   |---|---|---|
   | API calls | **0** | 0 |
   | monetary cost | **$0.00** | $0.00 |
   | model calls (13 outcomes x 8 draws) | **104** | 104 |
-  | arms asked / arms parsed | **1,664 / 1,664** (100.0 per cent) | 1,664 / 1,664 (100.0 per cent) |
-  | mean prompt size | **53,058.3 characters** | 52,394.3 characters |
-  | longest prompt | **54,167 characters** | 53,503 characters |
-  | **input tokens, total** | **1,267,696** | 1,240,032 |
-  | input tokens, mean for each call | **12,189.4** (min 12,053, max 12,470) | 11,923.4 |
-  | output tokens, total | about **12,300** | about 12,300 |
-  | wall clock, generation | **133.9 s** (2.2 minutes) | 132.9 s (2.2 minutes) |
-  | call-date window | **2026-08-30T16:07:20Z to 2026-08-30T16:09:33Z** | 2026-08-30T16:04:04Z to 2026-08-30T16:06:17Z |
+  | arms asked / arms parsed | **1,664 / 1,648** (99.0 per cent) | 1,664 / 1,632 (98.1 per cent) |
+  | draws behind each of the 208 cells | **min 7, max 8, mean 7.92** | min 7, max 8, mean 7.85 |
+  | mean prompt size | **43,292.3 characters** | 42,628.3 characters |
+  | longest prompt | **44,401 characters** | 43,737 characters |
+  | `max_model_len` | **16,080** | 15,859 |
+  | **input tokens, total** | **1,026,832** | 999,168 |
+  | input tokens, mean for each call | **9,873.4** (min 9,737, max 10,154) | 9,607.4 (min 9,471, max 9,888) |
+  | output tokens, total | about **12,300** (an estimate) | about 12,300 (an estimate) |
+  | wall clock, generation | **122.4 s** (2.0 minutes) | 119.1 s (2.0 minutes) |
+  | call-date window | **2026-08-30T16:48:09Z to 16:50:11Z** | 2026-08-30T16:51:13Z to 16:53:12Z |
 
   The call counts, prompt sizes, wall clock and windows are copied from
-  `forecast/runs/B_pop_on/forecast.meta.json`, `forecast/runs/A_pop_off/forecast.meta.json` and
-  `raw_data_deposit/AUDIT_primary_B_pop_on.txt`.
+  `forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`,
+  `forecast/runs/2026-08-30_A_pop_off_v2/forecast.meta.json` and the `AUDIT.txt` in each of those
+  two directories.
 
   **How the token counts were made.** `forecast.meta.json` records characters, not tokens. The 104
   prompts were rebuilt from the deposited materials with `forecast/core.py::render` under the same
   seed, wrapped in the model's own chat template with `enable_thinking=False`, and counted with the
-  `Qwen/Qwen3.8-27B` tokenizer. The rebuild reproduces the recorded `mean_prompt_chars` of 53,058.3
-  and `longest_prompt_chars` of 54,167 exactly, which is the check that the counted prompts are the
-  prompts that ran. The measured rate is **4.36 characters for each token**, not the 3.79 that
+  `Qwen/Qwen3.8-27B` tokenizer. The rebuild reproduces the recorded `mean_prompt_chars` of 43,292.3
+  and `longest_prompt_chars` of 44,401 exactly, which is the check that the counted prompts are the
+  prompts that ran. The measured rate is **4.39 characters for each token**, not the 3.79 that
   `forecast/run_vllm.py` uses for its pre-run estimate; the estimate is therefore conservative.
   **The output tokens are an estimate, not a record.** The raw replies are not kept for a call that
-  parsed completely, so they cannot be counted. vLLM's own throughput line at the end of
-  `forecast/runs_B.log` reports 9,596.16 input tokens/s and 93.09 output tokens/s. Dividing the
-  exact input count by the input rate gives 132.10 s of generation, and 93.09 x 132.10 gives about
-  **12,300 output tokens**, or about 118 for each call. That is the right size for 16 lines of
-  `<position>: <number>`.
+  parsed completely, so they cannot be counted. The reply format did not change between the first
+  pass and the rerun: 16 lines of `<position>: <number>`. On the first pass, vLLM's own throughput
+  line at the end of `forecast/runs_B.log` reported 9,596.16 input tokens/s and 93.09 output
+  tokens/s, which gives about 118 output tokens for each call and about **12,300** in total. The
+  hard ceiling set by `max_tokens` is 40 x 16 + 128 = 768 for each call, so 79,872 in total.
 
   Estimated before the run, by `structured_forecast.py --print-prompts` on the 16 real intervention
   texts: one listwise prompt is about 51,210 characters, about 10,451 tokens; 104 calls; the same
