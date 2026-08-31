@@ -1,0 +1,48 @@
+{
+ "method": "structured_forecast",
+ "model": "z-ai/glm-5.3-flash",
+ "route": "chat",
+ "study": "broockman",
+ "mode": "listwise",
+ "framings": 1,
+ "samples": 8,
+ "temperature": 0.5,
+ "top_p": 0.95,
+ "seed": 1,
+ "seed_rule": "seed + sample index",
+ "population_block": false,
+ "anchor_line": false,
+ "summary_arms": false,
+ "thinking": false,
+ "call_window_start": "2026-08-31T08:57:46.449206+00:00",
+ "call_window_end": "2026-08-31T09:00:01.897816+00:00",
+ "calls": 336,
+ "arms_asked": 1376,
+ "arms_parsed": 1373,
+ "spend_usd": 0.0218,
+ "wall_clock_s": 135.4,
+ "price_table": {
+  "in": 0.075,
+  "out": 0.25,
+  "cache_read": 0.015,
+  "cache_write": 0.075
+ },
+ "price_table_source": "openrouter.ai/api/v1/models, z-ai/glm-5.3-flash, read 2026-08-31",
+ "ate_units": "rescaled 0-1 outcome",
+ "truth_per_point": 0.01,
+ "stimulus_provenance": [
+  {
+   "path": "ashokkumar_bench/data/megastudies/index.csv",
+   "exists": true,
+   "bytes": 9997,
+   "sha256": "226f2e27a1ad1e9c4429ec9f6ac77a4b71dd94ad8db6e491a4f175fb85b9d1a6",
+   "git_tracked": true
+  }
+ ],
+ "runner": "modelbench/structured_forecast.py",
+ "reasoning_request": {
+  "effort": "minimal"
+ },
+ "thinking_note": "This model refuses reasoning.enabled=false with HTTP 400. The run uses reasoning.effort=minimal, which returns reasoning_tokens = 0. It is equal to thinking off in output, but it is NOT the same request as the baselines.",
+ "wrapper": "/home/jovyan/tier3_openrouter_glm_deepseek/run_forecast.py"
+}

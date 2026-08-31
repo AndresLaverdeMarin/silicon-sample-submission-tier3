@@ -1,0 +1,83 @@
+{
+ "method": "structured_forecast",
+ "model": "google/gemma-4-26B-A4B-it",
+ "model_short": "Gemma4-26B",
+ "served_by": "local vLLM offline engine",
+ "engine_args": {
+  "limit_mm_per_prompt": {
+   "image": 0,
+   "audio": 0
+  }
+ },
+ "chat_template_kwargs": {
+  "enable_thinking": false
+ },
+ "study": "doell",
+ "mode": "listwise",
+ "population_block": false,
+ "anchor_line": false,
+ "framings": 1,
+ "samples": 8,
+ "temperature": 0.5,
+ "top_p": 0.95,
+ "seed": 2,
+ "tag": null,
+ "seed_rule": "seed + sample index",
+ "thinking": false,
+ "call_window_start": "2026-08-31T09:25:03.185553+00:00",
+ "call_window_end": "2026-08-31T09:25:07.117206+00:00",
+ "calls": 16,
+ "arms_asked": 176,
+ "arms_parsed": 176,
+ "parse_rate": 1.0,
+ "prompt_tokens": 110592,
+ "completion_tokens": 1297,
+ "spend_usd": 0.0,
+ "price_table": null,
+ "price_table_source": "not applicable: local weights, no paid call",
+ "wall_clock_s": 3.9,
+ "load_s": 62.4,
+ "max_model_len": 9884,
+ "gpu_memory_utilization": 0.9,
+ "mean_prompt_chars": 26126.5,
+ "longest_prompt_chars": 26412,
+ "ate_units": "points of the 0-100 outcome",
+ "truth_per_point": 1.0,
+ "stimulus_provenance": [
+  {
+   "path": "forecast/materials/megastudies/index.csv",
+   "exists": true,
+   "bytes": 8914,
+   "sha256": "6946454f71b6a896786dc539861f5e9b6394df8fe83b6b1c6300b98ad7465dcb",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/doell__belief.csv",
+   "exists": true,
+   "bytes": 792,
+   "sha256": "392b15e02ba08316295d8eafc25f69fbc30121d41fc4000b5cb8e177123e6f1f",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/doell__support.csv",
+   "exists": true,
+   "bytes": 790,
+   "sha256": "0d807786e3c175ba1ece1cac15baa20e70e80c4ba9f5d8afc6c7374caf7707a8",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/doell2024/conditions.json",
+   "exists": true,
+   "bytes": 86113,
+   "sha256": "51dc62bceb8c15bdb29dec3f714962f98ecc2f3698b515914e432b1fd4b07ac7",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/doell2024/questionnaire.json",
+   "exists": true,
+   "bytes": 12673,
+   "sha256": "ff86629429b9312cabf138dec2cc6e6564292b24768677aec55b4f25fb5b127c",
+   "git_tracked": false
+  }
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "method": "structured_forecast",
+ "model": "qwen/qwen3.8-27b",
+ "route": "chat",
+ "study": "broockman",
+ "mode": "listwise",
+ "framings": 1,
+ "samples": 8,
+ "temperature": 0.5,
+ "top_p": 0.95,
+ "seed": 1,
+ "seed_rule": "seed + sample index",
+ "population_block": false,
+ "anchor_line": false,
+ "summary_arms": false,
+ "thinking": true,
+ "call_window_start": "2026-08-31T09:46:08.816588+00:00",
+ "call_window_end": "2026-08-31T09:54:56.665556+00:00",
+ "calls": 336,
+ "arms_asked": 1376,
+ "arms_parsed": 1369,
+ "spend_usd": 1.1096,
+ "wall_clock_s": 527.8,
+ "price_table": {
+  "in": 0.425,
+  "out": 2.5500000000000003,
+  "cache_read": 0.08499999999999999,
+  "cache_write": 0.53125
+ },
+ "price_table_source": "openrouter.ai/api/v1/models, qwen/qwen3.8-27b, read 2026-08-31",
+ "ate_units": "rescaled 0-1 outcome",
+ "truth_per_point": 0.01,
+ "stimulus_provenance": [
+  {
+   "path": "ashokkumar_bench/data/megastudies/index.csv",
+   "exists": true,
+   "bytes": 9997,
+   "sha256": "226f2e27a1ad1e9c4429ec9f6ac77a4b71dd94ad8db6e491a4f175fb85b9d1a6",
+   "git_tracked": true
+  }
+ ],
+ "runner": "modelbench/structured_forecast.py",
+ "reasoning_request": {
+  "effort": "high"
+ },
+ "max_tokens_headroom": 8000,
+ "thinking_note": "Reasoning effort HIGH. The baselines ran with reasoning off. Do not compare the cost of the two.",
+ "wrapper": "/home/jovyan/tier3_openrouter_glm_deepseek/run_forecast.py"
+}

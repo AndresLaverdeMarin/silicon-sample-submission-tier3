@@ -1,0 +1,353 @@
+{
+ "method": "structured_forecast",
+ "model": "Qwen/Qwen3.8-27B",
+ "model_short": "Qwen3.8-27B",
+ "served_by": "local vLLM offline engine",
+ "engine_args": {
+  "limit_mm_per_prompt": {
+   "image": 0,
+   "audio": 0
+  },
+  "additional_config": {
+   "gdn_prefill_backend": "triton"
+  }
+ },
+ "chat_template_kwargs": {
+  "enable_thinking": false,
+  "reasoning_effort": "low"
+ },
+ "study": "broockman",
+ "mode": "listwise",
+ "population_block": false,
+ "anchor_line": false,
+ "framings": 1,
+ "samples": 8,
+ "temperature": 0.5,
+ "top_p": 0.95,
+ "seed": 2,
+ "tag": null,
+ "seed_rule": "seed + sample index",
+ "thinking": false,
+ "call_window_start": "2026-08-31T09:07:13.965476+00:00",
+ "call_window_end": "2026-08-31T09:07:47.189004+00:00",
+ "calls": 336,
+ "arms_asked": 1376,
+ "arms_parsed": 1376,
+ "parse_rate": 1.0,
+ "prompt_tokens": 271664,
+ "completion_tokens": 9551,
+ "spend_usd": 0.0,
+ "price_table": null,
+ "price_table_source": "not applicable: local weights, no paid call",
+ "wall_clock_s": 33.2,
+ "load_s": 43.7,
+ "max_model_len": 9774,
+ "gpu_memory_utilization": 0.9,
+ "mean_prompt_chars": 3299.6,
+ "longest_prompt_chars": 3936,
+ "ate_units": "rescaled 0-1 outcome",
+ "truth_per_point": 0.01,
+ "stimulus_provenance": [
+  {
+   "path": "forecast/materials/megastudies/index.csv",
+   "exists": true,
+   "bytes": 8796,
+   "sha256": "7983d056a45bb792a11ff0843505e09c9fcebf3a0436b85f1aa3034c101d657a",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_allowing_all_americans_to_vote_by_mail__na.csv",
+   "exists": true,
+   "bytes": 1075,
+   "sha256": "a3ad86c4dc0458e120f5d56f689ba6f56827f550f4f7367c921dd9a2167a90da",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_allowing_medicare_to_negotiate_drug_prices__na.csv",
+   "exists": true,
+   "bytes": 1915,
+   "sha256": "154ac77dfba16c45877cb3d2b21cb1746bbe9ceb66a99dd6b67b8a2350a2e335",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_allowing_people_to_carry_concealed_guns_in_more_places__na.csv",
+   "exists": true,
+   "bytes": 938,
+   "sha256": "eb1b8a3f5c19ebaba525bde167da1eea2046f4add457b5fb0280396ba0657223",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_banning_cash_bail__na.csv",
+   "exists": true,
+   "bytes": 655,
+   "sha256": "293defca326a94ef5d6c42eba15bf0634c746123b7f05bf16e0b84eaf4e02ceb",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_cancelling_student_loan_debt__na.csv",
+   "exists": true,
+   "bytes": 1588,
+   "sha256": "532b86eaf67ed20a238e930bb732b5ba588a4c7044cc3d2190aa46fbbeac6723",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_increasing_defense_spending__na.csv",
+   "exists": true,
+   "bytes": 1330,
+   "sha256": "046b49f34384323b8dd3b88c73bae7e16e9a4a68158f98a89441b4ded40fa366",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_increasing_funding_for_border_security__na.csv",
+   "exists": true,
+   "bytes": 1751,
+   "sha256": "023622103862af7f1aed4411dabb93bb120652e772a3e06ebee6eb3bdbe023b5",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_increasing_funding_for_renewable_energy__na.csv",
+   "exists": true,
+   "bytes": 1001,
+   "sha256": "2d3ace7d43b1f6560734551adac12d46d340fe20d400ad3e8489b034c85076db",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_increasing_legal_immigration__na.csv",
+   "exists": true,
+   "bytes": 1562,
+   "sha256": "41cd1c09c042d3ed6eebabaf683179892560f534d450bbe7beb7c30c860ac79f",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_increasing_taxes_on_high_earning_americans__na.csv",
+   "exists": true,
+   "bytes": 878,
+   "sha256": "73746ca51276e7b4b648258ded73b4dd72284a1eb63bd58fb73466fdd3c845ab",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_increasing_the_federal_minimum_wage__na.csv",
+   "exists": true,
+   "bytes": 1309,
+   "sha256": "693cef7669763cf25102600438cd589ecac69bfa2eee5ef2d0d410f8b3a9736e",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_legalizing_marijuana__na.csv",
+   "exists": true,
+   "bytes": 1734,
+   "sha256": "bf5407e6ce66bfbc72fa5cc0ad38f0350b89ae7e7a4be8737f6d14223be2e99d",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_lowering_the_medicare_eligibility_age__na.csv",
+   "exists": true,
+   "bytes": 1300,
+   "sha256": "5e2ea8bd883560e0595f5545e6b96af931516f7769a97d7e7db836760fa743c9",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_making_abortion_legal_in_all_cases__na.csv",
+   "exists": true,
+   "bytes": 1588,
+   "sha256": "9bc288cbd930230a3b18466235c206f28db8b4a4d390e8278cf72ed66f4494c4",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_making_it_easier_to_drill_for_oil_and_gas__na.csv",
+   "exists": true,
+   "bytes": 1666,
+   "sha256": "da2b1f7cd9faf0e43828eecfd909e28efa43aa225f7cc1148b1e6f44a40aea54",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_reducing_police_funding_in_order_to_increase_social_services_funding__na.csv",
+   "exists": true,
+   "bytes": 1379,
+   "sha256": "f748cbcd4873a9357f56ed4e5c166d1aa0140bff9ebd98460883bcab0726cad3",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_requiring_background_checks_for_gun_purchases__na.csv",
+   "exists": true,
+   "bytes": 1356,
+   "sha256": "ed5788574f77364eed18e1881b86b599127c74a3917719884df82a8c527a2c91",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_requiring_transgender_athletes_to_compete_with_their_sex_assigned_at_birth__na.csv",
+   "exists": true,
+   "bytes": 988,
+   "sha256": "5eda02d73c8e6ce690c0b7e73405f85437cea0ea3b39a1585728cc2e133f745f",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_requiring_transgender_individuals_to_use_public_bathrooms_that_match_the_sex_they_were_assigned_at_birth__na.csv",
+   "exists": true,
+   "bytes": 1080,
+   "sha256": "aa910746fe7fd3937721ae4535db7eaf8ca66f6b71206bc5b4b6b539d977fa90",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_right_to_work_laws__na.csv",
+   "exists": true,
+   "bytes": 1147,
+   "sha256": "ceea483c2e4457f21b5ab48993a5095b3aea8a05f0d82ec9e64d93a12652f46f",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_oppose_the_dream_act__na.csv",
+   "exists": true,
+   "bytes": 1594,
+   "sha256": "584d8292ed2f6e6d969b71ad9b1e9181a9011d4fc4aa1f75dc45a471960c7e22",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_allowing_all_americans_to_vote_by_mail__na.csv",
+   "exists": true,
+   "bytes": 1356,
+   "sha256": "7e871db2bac50ac67f03acc13e87d867d8dbd0088200def433b17560ea8568ac",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_allowing_medicare_to_negotiate_drug_prices__na.csv",
+   "exists": true,
+   "bytes": 828,
+   "sha256": "2092fbb44e50c6a65f4a5e4477c28b969fb0d750db2a6c15240e1f042cbf85e4",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_allowing_people_to_carry_concealed_guns_in_more_places__na.csv",
+   "exists": true,
+   "bytes": 816,
+   "sha256": "5b9eda7e170c8260ece45e4043be342e741434ca6d012b7b03a64116208711ab",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_banning_cash_bail__na.csv",
+   "exists": true,
+   "bytes": 887,
+   "sha256": "619d44265a4baff9efc5bf36dd2314ae6b8efbff59aaa42b3a6fc44b9d539319",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_cancelling_student_loan_debt__na.csv",
+   "exists": true,
+   "bytes": 1892,
+   "sha256": "8243dbaa08a7f133b551cd9e9739ea299c9ba10e6cfdbe6dcc195096f1e6f818",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_increasing_defense_spending__na.csv",
+   "exists": true,
+   "bytes": 1294,
+   "sha256": "43febf90502a582fa37d0cad52101a6e64be3a9edeb696c55d30b6ea43720890",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_increasing_funding_for_border_security__na.csv",
+   "exists": true,
+   "bytes": 1585,
+   "sha256": "a41962681882e63d73e328037fe22cc002b35c8f971ce23c22abc3c317ad0a76",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_increasing_funding_for_renewable_energy__na.csv",
+   "exists": true,
+   "bytes": 872,
+   "sha256": "aaae7216e9e0be7fb09b0285c3ab809d37d2290550967e48fb0a9bbcc0326c62",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_increasing_legal_immigration__na.csv",
+   "exists": true,
+   "bytes": 1338,
+   "sha256": "95c1b2e9d3b5563f1af4e85f095b730f272bc27bb46c722a34b0cc5fb11abe03",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_increasing_taxes_on_high_earning_americans__na.csv",
+   "exists": true,
+   "bytes": 1256,
+   "sha256": "9022a07e72b1e0d0ebc8215500a0ffa332d22685887c74ddbff282b87d687e57",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_increasing_the_federal_minimum_wage__na.csv",
+   "exists": true,
+   "bytes": 1556,
+   "sha256": "686ac50351c2d298cbe3a4e1ad7f5850a0865e8a3cf901c5a557ffa3b32bfd2f",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_legalizing_marijuana__na.csv",
+   "exists": true,
+   "bytes": 1282,
+   "sha256": "32986c4b849eda9ee7108506448baf7fec13b8b9cebcf0997beeffffd90d5e38",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_lowering_the_medicare_eligibility_age__na.csv",
+   "exists": true,
+   "bytes": 906,
+   "sha256": "e892f109f1180615449490f4b2f6cc6a3e7495e9fd904891e36b079a46fa0862",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_making_abortion_legal_in_all_cases__na.csv",
+   "exists": true,
+   "bytes": 1440,
+   "sha256": "024dc4dea90a203c6ab4f13be7b13ef0f3df7374c3370feef564e0ccd82088e0",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_making_it_easier_to_drill_for_oil_and_gas__na.csv",
+   "exists": true,
+   "bytes": 1053,
+   "sha256": "423018723e5d14d3ee224bfcb014802b373793c86304dd101da9028b372b5dd6",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_reducing_police_funding_in_order_to_increase_social_services_funding__na.csv",
+   "exists": true,
+   "bytes": 1579,
+   "sha256": "802c506305a0fd06c37eb8ad546d48539ffa509414b6a62904bf30bf4dd9e1f8",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_requiring_background_checks_for_gun_purchases__na.csv",
+   "exists": true,
+   "bytes": 1286,
+   "sha256": "71e29e238197b6db9ce172c5f1cbcbe0eabdd1e43cb77167068db7c7b97d24b1",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_requiring_transgender_athletes_to_compete_with_their_sex_assigned_at_birth__na.csv",
+   "exists": true,
+   "bytes": 1004,
+   "sha256": "5eb64606710e5d6a731e5c1ef717678acde8593ee8f97f17756a48b6eec96873",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_requiring_transgender_individuals_to_use_public_bathrooms_that_match_the_sex_they_were_assigned_at_birth__na.csv",
+   "exists": true,
+   "bytes": 833,
+   "sha256": "d72ff473a089eb0e638fa50099f3a4886afb4277a0fc8c89baac72895b6c5464",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_right_to_work_laws__na.csv",
+   "exists": true,
+   "bytes": 1426,
+   "sha256": "ac6ade1be95b217d5b864c5719c73c9cc64f6b4da852b8f3e6168567b401c0aa",
+   "git_tracked": false
+  },
+  {
+   "path": "forecast/materials/megastudies/effects/broockman_support_the_dream_act__na.csv",
+   "exists": true,
+   "bytes": 1405,
+   "sha256": "83f7cd2dd4c0c9827f5e4e5af3a88d4461fb22394c7ebb9236fadee5c7250e6a",
+   "git_tracked": false
+  }
+ ]
+}

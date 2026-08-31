@@ -1,0 +1,31 @@
+{
+ "model": "Qwen/Qwen3.8-27B",
+ "served_by": "local vLLM offline engine",
+ "study": "broockman",
+ "mode": "listwise",
+ "framings": 1,
+ "samples": 8,
+ "temperature": 0.85,
+ "top_p": 0.95,
+ "seed": 1,
+ "call_window_start": "2026-08-30T16:13:34.890256+00:00",
+ "call_window_end": "2026-08-30T16:14:04.758844+00:00",
+ "calls": 336,
+ "arms_asked": 1376,
+ "arms_parsed": 1376,
+ "spend_usd": 0.0,
+ "wall_clock_s": 29.9,
+ "max_model_len": 2056,
+ "gpu_memory_utilization": 0.9,
+ "price_table": null,
+ "price_table_source": "not applicable: local weights, no price",
+ "stimulus_provenance": [
+  {
+   "path": "data/voelkel2026_osf/treatment_texts.json",
+   "exists": true,
+   "bytes": 22430,
+   "sha256": "b18575cef29773c5b06014d0c43183df45604467650fa99bf336f655e8b9095f",
+   "git_tracked": false
+  }
+ ]
+}
