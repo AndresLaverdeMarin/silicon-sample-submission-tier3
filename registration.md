@@ -22,10 +22,12 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 > ### The submitted run
 >
 > **Every run fact in this form is copied from
-> `forecast/runs/2026-08-30_B_pop_on_v2/`.** That is the **submitted** run: 104 calls, 1,648 of
-> 1,664 arms parsed (99.0 per cent), $0.00, 2026-08-30T16:48:09Z to 2026-08-30T16:50:11Z, 122.4 s.
+> `forecast/runs/2026-08-31_B_pop_on_t050_uv/`.** That is the **submitted** run: 104 calls, 1,664 of
+> 1,664 arms parsed (100.0 per cent), $0.00, 2026-08-31T13:41:39Z to 2026-08-31T13:43:30Z, 110.9 s,
+> temperature 0.5. **It supersedes `forecast/runs/2026-08-30_B_pop_on_v2/` at temperature 0.85; see
+> the supersession notice above.**
 >
-> **Variant A (`forecast/runs/2026-08-30_A_pop_off_v2/`) is the control condition, not the
+> **Variant A (`forecast/runs/2026-08-31_A_pop_off_t050_uv/`) is the control condition, not the
 > submission.** It is the same run with the population block removed. The two variants agree at
 > Pearson r = +0.9873 over the 208 cells. Rebuild that number with
 > `forecast/build_predictions.py --compare` on the two run directories.
@@ -47,7 +49,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 > | I.3 | The signature on the blinding attestation | the members named in 0.1 |
 > | K.1 | `code_doi` and `zenodo_doi` in `metadata.json`, after the Zenodo release | the members named in 0.1 |
 > | **J.2** | **A decision on the four preregistration breaches.** They are declared in full under J.2. The choice is to keep the entry with the declaration attached, or to re-run the preregistered test as written. | the members named in 0.1 |
-> | **K.3** | **A decision on the spend approval gap.** $4.0108 was spent on paid calls and no approval from David is recorded on disk. It affects no submitted value. | the members named in 0.1 |
+> | **K.3** | **A decision on the spend approval gap.** $5.6752 was spent on paid calls ($4.0108 to 2026-08-30, plus $1.6644 on 2026-08-31) and no approval from David is recorded on disk. It affects no submitted value. | the members named in 0.1 |
 >
 > One more item needs a file copy, not a decision:
 >
@@ -67,6 +69,51 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 > inference, not the data.
 
 ---
+
+> ### SUPERSESSION NOTICE — 2026-08-31: the submitted run changed
+>
+> **The submitted values now come from `forecast/runs/2026-08-31_B_pop_on_t050_uv/`,
+> at temperature 0.5.** They came from `forecast/runs/2026-08-30_B_pop_on_v2/`, at
+> temperature 0.85. Its control is `forecast/runs/2026-08-31_A_pop_off_t050_uv/`.
+>
+> **Why.** The whole deposited evidence base — all 74 scored configurations in
+> `raw_data_deposit/method_search/` — ran at temperature 0.5. The submission now
+> runs at the temperature its own evidence was measured at. **Nothing else
+> changed**: the same model, the same prompt, the same population block, the same
+> 8 draws, the same seed 1, the same 104 calls.
+>
+> **What it did to the numbers.** The two runs agree at **Pearson r = +0.9803**
+> over the 208 cells, with a mean absolute difference of 0.2371 and sign agreement
+> on 207 of 208. This is consistent with the search finding that temperature does
+> not matter (0 of 46 paired tests significant). The new run parses **100.0 per
+> cent** of arms (1,664 of 1,664) against 99.0 per cent before, so **every one of
+> the 208 cells now rests on 8 draws** rather than 7 or 8.
+>
+> **The pipeline now runs entirely inside this repository's own `uv`
+> environment**, the model run included (`pyproject.toml`, `uv.lock`, extra
+> `gpu`; vLLM 0.19.1, transformers 5.14.1, torch 2.10.0+cu128). Nothing outside
+> the repository is used.
+>
+> **Where the old runs are.** Two pairs are superseded and stay on disk as a
+> record. **No submitted value comes from any of them.**
+> `forecast/runs/2026-08-30_*_v2/` is the temperature-0.85 pair.
+> `forecast/runs/2026-08-31_*_t050/` is the temperature-0.5 pair made before the
+> repository had its `uv` environment. `raw_data_deposit/` holds the `_uv` pair.
+>
+> **Re-running the model does NOT reproduce it bit for bit.** The `_t050` and
+> `_t050_uv` pairs used the same seed, the same prompts and the same pinned
+> versions, and 1,447 of 1,664 arm-answers (87.0 per cent) came out identical.
+> vLLM's batching changes the floating-point path, so **the frozen
+> `forecast.jsonl` is the reproducible artefact, not the run that made it.** The
+> two pairs agree at Pearson r = +0.9974 over the 208 submitted cells, mean
+> absolute difference 0.0756, same sign in 207 of 208. Steps 1 and 3 ARE
+> deterministic: they rebuild `predictions/` from a frozen `forecast.jsonl` to
+> the same sha256 every time, in about 0.12 s.
+>
+> **Reading the rest of this file.** A reference to `2026-08-30_*_v2` or to
+> temperature 0.85 for the SUBMITTED run describes the superseded run. A reference
+> to temperature 0.85 in the METHOD SEARCH is correct and unchanged: that search
+> really did run at 0.85.
 
 ## 0 · Approach identity and output
 - **0.1 Team ★** — name, the one or two members (teams are at most two, unless a larger team was approved on request), affiliations, corresponding contact:
@@ -146,15 +193,17 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   route is a **single-turn chat message with reasoning off**. Every one of the calls is stateless
   with respect to every other; the model is given one prompt and keeps no history.
   **Call-date window of the SUBMITTED run, from
-  `forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`:
-  `2026-08-30T16:48:09.464895+00:00` to `2026-08-30T16:50:11.913353+00:00`** — one continuous run of
-  2.0 minutes (`wall_clock_s` 122.4). No submitted value was generated outside this window.
+  `forecast/runs/2026-08-31_B_pop_on_t050_uv/forecast.meta.json`:
+  `2026-08-31T13:41:39.792000+00:00` to `2026-08-31T13:43:30.644000+00:00`** — one continuous run of
+  1.8 minutes (`wall_clock_s` 110.9). No submitted value was generated outside this window.
   Both values are ISO-8601 UTC and are copied, not rounded and not relabelled.
-  The control variant A ran immediately after, from `2026-08-30T16:51:13.455997+00:00` to
-  `2026-08-30T16:53:12.561863+00:00`
-  (`forecast/runs/2026-08-30_A_pop_off_v2/forecast.meta.json`). **No value from variant A is
-  submitted.** The window that covers both runs is `2026-08-30T16:48:09Z` to
-  `2026-08-30T16:53:12Z`. The superseded first pass ran earlier the same day, from
+  The control variant A ran immediately after, from `2026-08-31T13:44:21.855000+00:00` to
+  `2026-08-31T13:46:08.589000+00:00`
+  (`forecast/runs/2026-08-31_A_pop_off_t050_uv/forecast.meta.json`). **No value from variant A is
+  submitted.** The window that covers both runs is `2026-08-31T13:41:39Z` to
+  `2026-08-31T13:46:08Z`.
+  **The SUPERSEDED temperature-0.85 pair ran on 2026-08-30**, from `16:48:09Z` to `16:50:11Z`
+  (variant B) and `16:51:13Z` to `16:53:12Z` (variant A). **No submitted value comes from either.** The superseded first pass ran earlier the same day, from
   `2026-08-30T16:04:04Z` to `2026-08-30T16:09:33Z`; no submitted value comes from it. Every
   measurement run reported in `docs/EVIDENCE.md` ran on 2026-08-29 or 2026-08-30.
 - **B.3 Configuration** — temperature, top-p/top-k, max tokens, penalties, stop sequences, seeds, reasoning effort, completions per item:
@@ -227,7 +276,26 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   They do: three paired tests, differences -0.0082, -0.0499 and +0.0252, p = 0.7949, 0.2429 and
   0.6643 (`docs/EVIDENCE.md` section 5a). **No value it produced reaches the deposited answers.**
 
-### B — Models 4 and later: the earlier open-weight comparison (no submitted value)
+### B — Models 4 to 7: the extended model comparison (no submitted value)
+- **B.1–B.7** — Four more models were scored on the public archives on 2026-08-31, at the same
+  settings as the entry's own runs (listwise, temperature 0.5, top_p 0.95, 8 draws, seed 1 and
+  seed 2, reasoning off unless stated):
+  - `google/gemma-4-26B-A4B-it` — local weights, vLLM offline engine, `HF_HUB_OFFLINE=1`. No cost.
+  - `google/gemma-4-E4B-it` — local weights, same engine. No cost.
+  - `deepseek/deepseek-v4-flash` — hosted through OpenRouter, `/api/v1/chat/completions`.
+  - `z-ai/glm-5.3-flash` — hosted through OpenRouter, same route.
+  A 12-run arm turned the models' reasoning ON (`Qwen3.8-27B` at `reasoning_effort = xhigh`, the
+  Gemma models with `enable_thinking = true`). **No value from any of these models, or from the
+  reasoning arm, reaches the deposited answers.** Every run is in
+  `raw_data_deposit/method_search/`; the scores are in `docs/EVIDENCE.md` section 14; the spend is
+  in K.3.
+- **B.2 note** — On the two archives that carry published baselines, the submission model
+  `Qwen/Qwen3.8-27B` beats published gpt-4 and the human expert forecasters (Broockman +0.4641
+  against +0.2329 and +0.1486; Doell +0.5572 against +0.4374 and +0.4960) and wins two of the three
+  archives outright. **It is confirmed as the submission model by this comparison, not displaced by
+  it.**
+
+### B — Models 8 and later: the earlier open-weight comparison (no submitted value)
 - **B.1–B.7** — Eight open-weight models were scored earlier in the project, on the Ashokkumar
   secondary archive, to choose a model for `team_27`'s **Tier 1** entry. That comparison is
   described in the Tier 1 registration form and is **not** part of this entry's selection. It is
@@ -536,8 +604,40 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **The preregistration allowed six on Broockman. We scored 17 on Broockman. See J.2.** The grid is
   3 models x 2 modes x up to 5 temperatures x 2 public studies. A further 9 runs of the earlier
   pointwise-with-personas forecaster are reported in `docs/EVIDENCE.md` sections 5c, 5d, 6 and 9.
+
+  **UPDATE 2026-08-31 — the count is now 74 scored configurations, not 34.** After the runs above,
+  the search was extended: four more models, a third public archive (`doell`), a second seed for
+  every local run, and a 12-run arm with the models' reasoning turned on. **Every run of the whole
+  search is now deposited**, winners and losers together, in
+  [`raw_data_deposit/method_search/`](raw_data_deposit/method_search/) — **80 run folders, 74 scored
+  configurations and 6 smoke tests**, with an `INDEX.csv` and a sha256 for every file, 1.68 MB
+  gzipped. The totals are 7 models, 3 public archives (broockman 34 runs, voelkel2025 34, doell 6),
+  2 modes (listwise 68, pointwise 6) and 2 reasoning settings (off 62, on 12). **No value from any
+  of them reaches the submitted predictions.** The extension does not change the entry: it scores
+  the same pipeline on more data. **It does make the exploratory warning of J.2 stronger, not
+  weaker** — more configurations were seen before this form was written, so the true false-positive
+  rate of any p value in this item is higher again. The results are in `docs/EVIDENCE.md` section
+  14. The added spend is in K.3.
+
+  **UPDATE 2026-08-31 — the search was re-scored with the BENCHMARK's own Tier 3 metrics.** Every
+  result above uses the within-cell correlation of Ashokkumar et al. The benchmark does not compute
+  that. It pools every intervention x outcome pair and computes ATE recovery (directional
+  agreement, Spearman rho, Pearson r, noise-corrected r) and the calibration regression (alpha,
+  beta). `docs/EVIDENCE.md` section 14 recomputes the search with the preregistration's own
+  formulas. **The conclusions of this item survive the change of metric.** This closes the open
+  question of `docs/EVIDENCE.md` section 8.
+
   **What the search found — the factors that DID matter:**
-  - **Listwise beats pointwise.** Six paired tests, all the same sign; one at p = 0.0369.
+  - **Listwise beats pointwise. THIS IS THE ONE FINDING THAT HELD EVERYWHERE.** Six paired tests on
+    the within-cell metric, all the same sign; one at p = 0.0369. Re-scored on the benchmark's own
+    pooled Pearson r, **listwise wins 6 of 6 comparisons** — 3 models x 2 archives, no exception —
+    by a mean of **+0.113 on Broockman and +0.071 on Voelkel**. On Broockman it wins EVERY Tier 3
+    metric for all three models. Two honest limits: on Voelkel pointwise has the better RMSE in all
+    three comparisons and the better Spearman rho in two of three, so listwise improves the LINEAR
+    agreement and not the ORDERING. `docs/EVIDENCE.md` section 14.1.
+    **This is why the entry is listwise.** It is the only factor of the search whose direction was
+    the same for every model and every archive tested. A model ranking was not: `Gemma4-26B` is
+    first on Voelkel and next to last on Doell.
   - **The direct forecast beats our own per-respondent simulation** on the same 42 cells:
     +0.4091 against +0.1917, paired t = +2.82, **p = 0.0073**, better in 30 of 42 cells. This is the
     only comparison in the project that reached p < 0.05.
@@ -676,14 +776,20 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 
   | File | Records | Bytes | SHA-256 |
   |---|---|---|---|
-  | `forecast/runs/2026-08-30_B_pop_on_v2/forecast.jsonl` — **the submitted run** | 104 | 403,275 | `c5ee9d3665e6fe366f6f90da287ae2505abc1b81d66e96c757ad8de8989efd17` |
-  | `forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json` | — | 4,892 | `2e64934b4306237d28e78357cd14479a56d065ec4a97f6ee99cd6c9cbf8cee2a` |
-  | `forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt` | — | 2,135 | `efe5cdc1195a1410e22b79da45253288d83bf8e90f76ea89bbdca5b01a8e7eb4` |
-  | `forecast/runs/2026-08-30_A_pop_off_v2/forecast.jsonl` — the control | 104 | 403,656 | `c1865d7fb5a0a2263144a1e0c8ab7bb12ae49c06055f921cdccf8015faab3710` |
-  | `forecast/runs/2026-08-30_A_pop_off_v2/forecast.meta.json` | — | 4,893 | `95a39f6772212d44b00b7598168876fafa591d3f2684eb20e19bf468dd367722` |
-  | `forecast/runs/2026-08-30_A_pop_off_v2/AUDIT.txt` | — | 2,135 | `e08eca0eba0ee74af4167abafd5392b540260c9e15a83af432bffeee42aa2c84` |
-  | `raw_data_deposit/variantA_pop_off_T3_ate.csv` — the control's 208 rows | 208 | 8,787 | `631f4e859d0f1f8514e301e1ff0c0613d4447233f6375898a4a2e9b695ddb961` |
-  | `predictions/team_27_T3_primary_v1.csv` — **the submitted values** | 208 | 8,785 | `e6e246bea5593f18ac9d7714b1a702fd1d3f56c83a252725aea5a3646172c578` |
+  | `forecast/runs/2026-08-31_B_pop_on_t050_uv/forecast.jsonl` — **the submitted run** | 104 | 402,742 | `8a9e664f2c50a45b241f02c24d41f54996183dd1b01e5159667f3bdc8ce41ccd` |
+  | `forecast/runs/2026-08-31_B_pop_on_t050_uv/forecast.meta.json` | — | 4,869 | `2646435bef424f7dfc57bb23ead444396dcba493ac91ccedcb4d0c171b78fdc8` |
+  | `forecast/runs/2026-08-31_B_pop_on_t050_uv/AUDIT.txt` | — | 2,139 | `c24662fc2ec5d79039bdf52a891da91c961c59480c85f67d03c71a1f4dbd5d38` |
+  | `forecast/runs/2026-08-31_A_pop_off_t050_uv/forecast.jsonl` — the control | 104 | 402,830 | `b121f11d2b9ac776fcf00b864ac56cd276a99e649e4c7ad26f99ecf1077c6243` |
+  | `forecast/runs/2026-08-31_A_pop_off_t050_uv/forecast.meta.json` | — | 4,870 | `9cbbdee616dc747b79a59de0921bfb074504e7a7151a4def2b4ed16d2c683eaa` |
+  | `forecast/runs/2026-08-31_A_pop_off_t050_uv/AUDIT.txt` | — | 2,140 | `0fa9e67e2b389149373d87a0310f873f3a9f077390722e1b6fcd72f7d40422e9` |
+  | `raw_data_deposit/variantA_pop_off_t050_uv_T3_ate.csv` — the control's 208 rows | 208 | 8,785 | `cfe90bc70d113f803578b8be45d8fce4ec4a60d3c9899dc8164e233fbc28b858` |
+  | `predictions/team_27_T3_primary_v1.csv` — **the submitted values** | 208 | 8,785 | `f9cc1057b8026b66ad0b90d64ab7545877e6e5b90b68096ea9e5c7101e4534a0` |
+
+  **UPDATED 2026-08-31 for the uv-produced temperature-0.5 pair.** The whole pipeline, including
+  the model run, now runs inside the repository's own `uv` environment (`pyproject.toml`,
+  `uv.lock`, extra `gpu`). The superseded runs stay on disk and no submitted value comes from any
+  of them: `forecast/runs/2026-08-30_*_v2/` (temperature 0.85) and
+  `forecast/runs/2026-08-31_*_t050/` (temperature 0.5, run before the uv environment existed).
 
   Every size and hash was read from the file, not copied from a record. The prediction file's hash
   is also in `metadata.json`, field `prediction_files`, written by `make manifest` and checked by
@@ -705,21 +811,49 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **The submitted values cost $0.00 and made 0 API calls.** The model runs on the team's own H100
   80GB, on local weights, with `HF_HUB_OFFLINE=1`.
 
-  | Quantity | Submitted run `2026-08-30_B_pop_on_v2` | Control variant `2026-08-30_A_pop_off_v2` |
+  **UPDATED 2026-08-31.** The submitted run is now the temperature-0.5 pair. The superseded
+  temperature-0.85 pair is in the second table below, kept as a record.
+
+  | Quantity | **Submitted run `2026-08-31_B_pop_on_t050_uv`** | Control variant `2026-08-31_A_pop_off_t050_uv` |
   |---|---|---|
+  | temperature | **0.5** | 0.5 |
   | API calls | **0** | 0 |
   | monetary cost | **$0.00** | $0.00 |
   | model calls (13 outcomes x 8 draws) | **104** | 104 |
-  | arms asked / arms parsed | **1,664 / 1,648** (99.0 per cent) | 1,664 / 1,632 (98.1 per cent) |
-  | draws behind each of the 208 cells | **min 7, max 8, mean 7.92** | min 7, max 8, mean 7.85 |
+  | arms asked / arms parsed | **1,664 / 1,664** (100.0 per cent) | 1,664 / 1,664 (100.0 per cent) |
+  | draws behind each of the 208 cells | **min 8, max 8, mean 8.00** | min 8, max 8, mean 8.00 |
   | mean prompt size | **43,292.3 characters** | 42,628.3 characters |
   | longest prompt | **44,401 characters** | 43,737 characters |
   | `max_model_len` | **16,080** | 15,859 |
+  | wall clock, generation | **110.9 s** (1.8 minutes) | 106.7 s (1.8 minutes) |
+  | call-date window | **2026-08-31T13:41:39Z to 13:43:30Z** | 2026-08-31T13:44:21Z to 13:46:08Z |
+
+  The prompt sizes and `max_model_len` are unchanged from the superseded pair, because only the
+  temperature changed. **The two temperatures agree at Pearson r = +0.9803 over the 208 submitted
+  cells**, mean absolute difference 0.2371, and the same sign in 207 of 208. The control agrees with
+  the submitted run at **Pearson r = +0.9941** (`raw_data_deposit/COMPARE_A_vs_B_t050_uv.txt`), against
+  +0.9873 for the superseded pair. **The token counts of the new pair were not recounted**; the
+  prompts are byte for byte the prompts of the superseded pair, so the input-token figures below
+  carry over unchanged.
+
+  **SUPERSEDED — the temperature-0.85 pair.** No submitted value comes from it.
+
+  | Quantity | Superseded run `2026-08-30_B_pop_on_v2` | Its control `2026-08-30_A_pop_off_v2` |
+  |---|---|---|
+  | temperature | 0.85 | 0.85 |
+  | API calls | 0 | 0 |
+  | monetary cost | $0.00 | $0.00 |
+  | model calls (13 outcomes x 8 draws) | 104 | 104 |
+  | arms asked / arms parsed | 1,664 / 1,648 (99.0 per cent) | 1,664 / 1,632 (98.1 per cent) |
+  | draws behind each of the 208 cells | min 7, max 8, mean 7.92 | min 7, max 8, mean 7.85 |
+  | mean prompt size | 43,292.3 characters | 42,628.3 characters |
+  | longest prompt | 44,401 characters | 43,737 characters |
+  | `max_model_len` | 16,080 | 15,859 |
   | **input tokens, total** | **1,026,832** | 999,168 |
   | input tokens, mean for each call | **9,873.4** (min 9,737, max 10,154) | 9,607.4 (min 9,471, max 9,888) |
-  | output tokens, total | about **12,300** (an estimate) | about 12,300 (an estimate) |
-  | wall clock, generation | **122.4 s** (2.0 minutes) | 119.1 s (2.0 minutes) |
-  | call-date window | **2026-08-30T16:48:09Z to 16:50:11Z** | 2026-08-30T16:51:13Z to 16:53:12Z |
+  | output tokens, total | about 12,300 (an estimate) | about 12,300 (an estimate) |
+  | wall clock, generation | 122.4 s (2.0 minutes) | 119.1 s (2.0 minutes) |
+  | call-date window | 2026-08-30T16:48:09Z to 16:50:11Z | 2026-08-30T16:51:13Z to 16:53:12Z |
 
   The call counts, prompt sizes, wall clock and windows are copied from
   `forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`,
@@ -755,9 +889,30 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   stale: the grid grew after each was written. $4.0108 is the sum over the files as they now stand.
   Do not carry the older numbers forward.
 
+  **UPDATE 2026-08-31 — the extended model comparison adds $1.6644.** The runs of
+  `deepseek/deepseek-v4-flash`, `z-ai/glm-5.3-flash` and the hosted `qwen/qwen3.8-27b` reasoning arm
+  cost **$1.6644** through OpenRouter, read by summing `spend_usd` over the 16 `forecast.meta.json`
+  files of `raw_data_deposit/method_search/runs/openrouter_glm_deepseek/`. Of that, the two new
+  models cost **$0.2507** together (all their runs, reasoning and smoke tests included) and the
+  hosted `qwen/qwen3.8-27b` reasoning runs cost **$1.4137** — a reasoning run is expensive because
+  the model writes its scratch work before its answer.
+  **Cumulative paid spend is therefore $5.6752.** The 30 local runs added on the same date cost
+  **$0.00**: they ran on the team's own H100 on local weights, made 0 API calls, and generated
+  6,801,093 output tokens in 2.23 hours of engine time. **The declaration below applies to the
+  new spend in the same way.** No value from any paid call reaches the deposited answers.
+
+  **Compute of the extended comparison, for the record.** 30 local runs, 3 models, 3 archives, 2
+  seeds, plus a 12-run reasoning arm. Reasoning is the whole cost: `Qwen/Qwen3.8-27B` at
+  `reasoning_effort = xhigh` wrote 3,900,296 output tokens for 336 Broockman calls in 80.8 minutes,
+  against 9,567 tokens in 0.64 minutes for the same calls with reasoning off — **408 times the
+  output for a LOWER score** (`docs/EVIDENCE.md` section 14.3). Every run's token counts, wall clock
+  and call window are in its own `forecast.meta.json` under
+  `raw_data_deposit/method_search/`.
+
   **DECLARATION: the spend approval gap.** The project's own working rule, in `CLAUDE.md`, is: *"No
   paid LLM API calls without explicit approval from David"* (david.garciabecerra@gmail.com).
-  **Cumulative paid spend is $4.0108, and no approval from David is recorded anywhere on disk.**
+  **Cumulative paid spend is $5.6752 ($4.0108 to 2026-08-30, plus $1.6644 on 2026-08-31), and no
+  approval from David is recorded anywhere on disk.**
   The runs were directed by the corresponding author in session. We do not claim that an approval
   exists, because we cannot point to one. **The members named in 0.1 must reconcile this before the
   prediction lock.** It affects no submitted value: the submitted values cost $0.00 and made 0 API

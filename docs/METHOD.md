@@ -7,6 +7,51 @@ prompt, the sign rule, the ensemble and the parser. Every number in it comes
 from a named file. The evidence that this method is the right one is in
 [`EVIDENCE.md`](EVIDENCE.md), not here.
 
+> ### SUPERSESSION NOTICE — 2026-08-31: the submitted run changed
+>
+> **The submitted values now come from `forecast/runs/2026-08-31_B_pop_on_t050_uv/`,
+> at temperature 0.5.** They came from `forecast/runs/2026-08-30_B_pop_on_v2/`, at
+> temperature 0.85. Its control is `forecast/runs/2026-08-31_A_pop_off_t050_uv/`.
+>
+> **Why.** The whole deposited evidence base — all 74 scored configurations in
+> `raw_data_deposit/method_search/` — ran at temperature 0.5. The submission now
+> runs at the temperature its own evidence was measured at. **Nothing else
+> changed**: the same model, the same prompt, the same population block, the same
+> 8 draws, the same seed 1, the same 104 calls.
+>
+> **What it did to the numbers.** The two runs agree at **Pearson r = +0.9803**
+> over the 208 cells, with a mean absolute difference of 0.2371 and sign agreement
+> on 207 of 208. This is consistent with the search finding that temperature does
+> not matter (0 of 46 paired tests significant). The new run parses **100.0 per
+> cent** of arms (1,664 of 1,664) against 99.0 per cent before, so **every one of
+> the 208 cells now rests on 8 draws** rather than 7 or 8.
+>
+> **The pipeline now runs entirely inside this repository's own `uv`
+> environment**, the model run included (`pyproject.toml`, `uv.lock`, extra
+> `gpu`; vLLM 0.19.1, transformers 5.14.1, torch 2.10.0+cu128). Nothing outside
+> the repository is used.
+>
+> **Where the old runs are.** Two pairs are superseded and stay on disk as a
+> record. **No submitted value comes from any of them.**
+> `forecast/runs/2026-08-30_*_v2/` is the temperature-0.85 pair.
+> `forecast/runs/2026-08-31_*_t050/` is the temperature-0.5 pair made before the
+> repository had its `uv` environment. `raw_data_deposit/` holds the `_uv` pair.
+>
+> **Re-running the model does NOT reproduce it bit for bit.** The `_t050` and
+> `_t050_uv` pairs used the same seed, the same prompts and the same pinned
+> versions, and 1,447 of 1,664 arm-answers (87.0 per cent) came out identical.
+> vLLM's batching changes the floating-point path, so **the frozen
+> `forecast.jsonl` is the reproducible artefact, not the run that made it.** The
+> two pairs agree at Pearson r = +0.9974 over the 208 submitted cells, mean
+> absolute difference 0.0756, same sign in 207 of 208. Steps 1 and 3 ARE
+> deterministic: they rebuild `predictions/` from a frozen `forecast.jsonl` to
+> the same sha256 every time, in about 0.12 s.
+>
+> **Reading the rest of this file.** A reference to `2026-08-30_*_v2` or to
+> temperature 0.85 for the SUBMITTED run describes the superseded run. A reference
+> to temperature 0.85 in the METHOD SEARCH is correct and unchanged: that search
+> really did run at 0.85.
+
 ---
 
 ## 1. What the entry is, in one paragraph
@@ -23,10 +68,10 @@ is deliberate. See section 7.
 
 **Two variants were run. Variant B is submitted.** B puts the benchmark's own
 recruitment-quota table into the `STUDY` slot of the prompt; A leaves it out.
-The submitted run is `forecast/runs/2026-08-30_B_pop_on_v2/`. Its values are
+The submitted run is `forecast/runs/2026-08-31_B_pop_on_t050_uv/`. Its values are
 `predictions/team_27_T3_primary_v1.csv`. The control run is
-`forecast/runs/2026-08-30_A_pop_off_v2/`. The two agree at Pearson
-r = +0.9873 over the 208 cells. See section 3.3.
+`forecast/runs/2026-08-31_A_pop_off_t050_uv/`. The two agree at Pearson
+r = +0.9941 over the 208 cells. See section 3.3.
 
 **The runs `forecast/runs/B_pop_on/` and `forecast/runs/A_pop_off/` are
 SUPERSEDED.** They ran before the `Extreme weather predictions` arm was cut to
@@ -192,9 +237,9 @@ population from the same file. Two entries from one team should not disagree
 about who took part.
 
 **The control is deposited.** The same run without the block is variant A,
-`forecast/runs/2026-08-30_A_pop_off_v2/`. Its 208 rows are also written out as
+`forecast/runs/2026-08-31_A_pop_off_t050_uv/`. Its 208 rows are also written out as
 `raw_data_deposit/variantA_pop_off_T3_ate.csv`. The two variants agree at
-Pearson r = +0.9873 over the 208 cells. Full account:
+Pearson r = +0.9941 over the 208 cells. Full account:
 [`EVIDENCE.md`](EVIDENCE.md) section 5c.
 
 **To reproduce either one**, add or remove `--population`:
@@ -238,7 +283,7 @@ The arm is now **2,213 characters**
 (`forecast/materials/stimuli/extreme_weather_predictions.txt`). It is **5.9 per
 cent** of the 37,722 characters of arm text. The mean prompt fell from 53,058.3
 to 43,292.3 characters (`forecast/runs/B_pop_on/forecast.meta.json` against
-`forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`).
+`forecast/runs/2026-08-31_B_pop_on_t050_uv/forecast.meta.json`).
 
 **Both variants were run again after the cut.** Every submitted value comes from
 a run after it.
@@ -457,17 +502,17 @@ python forecast/run_vllm.py --model Qwen/Qwen3.8-27B \
 
 # 3. The real run. It costs $0.00. --population makes the SUBMITTED variant B.
 python forecast/run_vllm.py --model Qwen/Qwen3.8-27B \
-    --temperature 0.85 --samples 8 --population --go \
+    --temperature 0.5 --samples 8 --population --go \
     --label B_pop_on_v2
 
 # 3b. The control variant A. The same, without the population block.
 python forecast/run_vllm.py --model Qwen/Qwen3.8-27B \
-    --temperature 0.85 --samples 8 --go \
+    --temperature 0.5 --samples 8 --go \
     --label A_pop_off_v2
 
 # 4. Build the 208 rows and print the audits make check cannot make.
 #    WITHOUT --out this writes AUDIT.txt only. It writes NO prediction file.
-python forecast/build_predictions.py forecast/runs/2026-08-30_B_pop_on_v2 \
+python forecast/build_predictions.py forecast/runs/2026-08-31_B_pop_on_t050_uv \
     --out predictions/team_27_T3_primary_v1.csv
 
 # 5. Fingerprint and validate.
@@ -525,48 +570,51 @@ at once.
 
 ## 11. Cost and size of the target run
 
-**`2026-08-30_B_pop_on_v2` is the submitted run.** `2026-08-30_A_pop_off_v2` is
+**`2026-08-31_B_pop_on_t050_uv` is the submitted run.** `2026-08-31_A_pop_off_t050_uv` is
 the control. Measured on the runs themselves:
-`forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`,
-`forecast/runs/2026-08-30_A_pop_off_v2/forecast.meta.json` and the `AUDIT.txt`
+`forecast/runs/2026-08-31_B_pop_on_t050_uv/forecast.meta.json`,
+`forecast/runs/2026-08-31_A_pop_off_t050_uv/forecast.meta.json` and the `AUDIT.txt`
 in each of those two directories.
 
-| Quantity | `2026-08-30_B_pop_on_v2` — SUBMITTED | `2026-08-30_A_pop_off_v2` — control |
+| Quantity | `2026-08-31_B_pop_on_t050_uv` — SUBMITTED | `2026-08-31_A_pop_off_t050_uv` — control |
 |---|---|---|
 | model | `Qwen/Qwen3.8-27B`, local vLLM offline engine | the same |
-| mode / temperature / draws | listwise / 0.85 / 8 | the same |
+| mode / temperature / draws | listwise / **0.5** / 8 | the same |
 | population block | **yes** | no |
 | calls: 13 outcomes x 8 draws | **104** | 104 |
-| arms asked / parsed | **1,664 / 1,648 — 99.0 per cent** | 1,664 / 1,632 — 98.1 per cent |
-| draws behind each of the 208 cells | min 7, max 8, mean 7.92 | min 7, max 8, mean 7.85 |
+| arms asked / parsed | **1,664 / 1,664 — 100.0 per cent** | 1,664 / 1,664 — 100.0 per cent |
+| draws behind each of the 208 cells | **min 8, max 8, mean 8.00** | min 8, max 8, mean 8.00 |
 | mean prompt | **43,292.3 characters** | 42,628.3 characters |
 | longest prompt | **44,401 characters** | 43,737 characters |
-| input tokens, total | **1,026,832** | 999,168 |
-| output tokens, total | about **12,300** (an estimate) | about 12,300 (an estimate) |
+| input tokens, total | **1,026,832** (carried over; the prompts are unchanged) | 999,168 |
 | `max_model_len` | 16,080 | 15,859 |
-| wall clock, generation | **122.4 s — 2.0 minutes** | 119.1 s — 2.0 minutes |
-| call window | **2026-08-30T16:48:09Z to 16:50:11Z** | 2026-08-30T16:51:13Z to 16:53:12Z |
+| wall clock, generation | **110.9 s — 1.8 minutes** | 106.7 s — 1.8 minutes |
+| call window | **2026-08-31T13:41:39Z to 13:43:30Z** | 2026-08-31T13:44:21Z to 13:46:08Z |
 | API calls | **0** | 0 |
 | **monetary cost** | **$0.00** | $0.00 |
 
-**Why the parse rate is not 100 per cent.** Exactly **one** call of the 104
-failed. It is the `donation_ams` outcome, draw 4. The model answered with prose
-reasoning and never wrote the 16 required lines, so no labelled line was found
-and the whole call was dropped
-(`forecast/runs/2026-08-30_B_pop_on_v2/forecast.jsonl`, the record with
-`parse_mode: unparsed`). Nothing was repaired, imputed or asked again. The 16
-`donation_ams` cells therefore rest on **7** draws and the other 192 cells rest
-on **8**. That gives 1,648 parsed arm-answers and a mean of 7.92 draws for each
-cell. The control lost two calls the same way, `donation_ams` and
-`newsletter_signup`, both draw 4.
+**The output tokens are no longer estimated**, because the new pair parsed every
+call; the earlier estimate of about 12,300 applied to the superseded run.
+
+**The parse rate is 100 per cent.** All 104 calls of the submitted run, and all
+104 of the control, wrote the 16 required lines. **Every one of the 208 cells
+rests on 8 draws.** Nothing was repaired, imputed or asked again; the pipeline
+drops a failed draw and does not replace it, so a 100 per cent rate is a
+property of the run and not of any repair.
+
+**The superseded temperature-0.85 run lost one call**, `donation_ams` draw 4,
+where the model answered with prose and never wrote the 16 lines. Its 16
+`donation_ams` cells rested on 7 draws and the other 192 on 8, giving 1,648
+parsed arm-answers and a mean of 7.92. Its control lost two calls the same way.
+**Lowering the temperature from 0.85 to 0.5 removed the failure.**
 
 **The output of the submitted run**, from
 `predictions/team_27_T3_primary_v1.csv` and
-`forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt`: 208 rows, no missing value,
-`ate` from **-5.100 to +4.975**, mean **+1.289**. 27 of the 208 values are
+`forecast/runs/2026-08-31_B_pop_on_t050_uv/AUDIT.txt`: 208 rows, no missing value,
+`ate` from **-6.250 to +4.750**, mean **+1.329**. 27 of the 208 values are
 negative, 25 of them among the 176 slider values. `newsletter_signup` runs from
--0.0029 to +0.0288, which is a change of a 0-1 proportion. `donation_ams` runs
-from -0.0640 to +0.4000 dollars on a 0-10 scale. `trust_post` and
+-0.0081 to +0.0310, which is a change of a 0-1 proportion. `donation_ams` runs
+from -0.110 to +0.454 dollars on a 0-10 scale. `trust_post` and
 `distrust_post` disagree in sign for 15 of the 16 texts, which is what a
 trust-building text should do; `Social justice` is the one that does not.
 
