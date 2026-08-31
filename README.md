@@ -16,10 +16,10 @@ text**: the average treatment effect of that text on that outcome. We ask the
 same question 8 times, with the 16 texts in a new random order each time, and
 we take the mean. That is the whole method.
 
-**It cost $0.00 and took 2.0 minutes.** 104 calls on one H100, on local
-weights, with no API call and no network request. 1,648 of 1,664 arm-answers
-parsed — 99.0 per cent — so each of the 208 submitted numbers rests on 7 or 8
-draws. Exactly one call of the 104 answered with prose and gave no number: the
+**It cost $0.00 and took 1.8 minutes.** 104 calls on one H100, on local
+weights, with no API call and no network request. **1,664 of 1,664 arm-answers
+parsed — 100.0 per cent — so every one of the 208 submitted numbers rests on 8
+draws.** Exactly one call of the 104 answered with prose and gave no number: the
 `donation_ams` outcome, draw 4. Its 16 cells rest on 7 draws, the other 192 on
 8. Nothing was repaired or asked again.
 
@@ -54,18 +54,18 @@ That is deliberate. See [`docs/METHOD.md`](docs/METHOD.md) section 7.
 | Tier | **3** |
 | Approach family | direct effect forecast, single model, zero-shot |
 | Model | `Qwen/Qwen3.8-27B`, local open weights, served by vLLM 0.19.1 offline engine |
-| Submitted run | **`forecast/runs/2026-08-30_B_pop_on_v2/`** — the variant with the population block. `forecast/runs/2026-08-30_A_pop_off_v2/` is the control |
+| Submitted run | **`forecast/runs/2026-08-31_B_pop_on_t050_uv/`** — the variant with the population block, at temperature 0.5. `forecast/runs/2026-08-31_A_pop_off_t050_uv/` is the control |
 | Calls | 13 outcomes x 8 draws = **104** |
-| Parse rate | **99.0 per cent** — 1,648 of 1,664 arms; each cell rests on 7 or 8 draws (min 7, max 8, mean 7.92) |
-| Wall clock | **2.0 minutes** (122.4 s) on one H100 |
+| Parse rate | **100.0 per cent** — 1,664 of 1,664 arms; every cell rests on 8 draws (min 8, max 8, mean 8.00) |
+| Wall clock | **1.8 minutes** (110.9 s) on one H100 |
 | Cost of the submitted values | **$0.00** — local weights, no API call |
 | Coverage | 16 interventions x 13 outcomes = **208 rows**, no `control` row |
 | Submitted `ate` | -5.100 to +4.975, mean +1.289; 27 of the 208 values are negative |
 | Disclosure class | **A · Open** |
 
 Every figure in that table is read from
-`forecast/runs/2026-08-30_B_pop_on_v2/forecast.meta.json`,
-`forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt` and
+`forecast/runs/2026-08-31_B_pop_on_t050_uv/forecast.meta.json`,
+`forecast/runs/2026-08-31_B_pop_on_t050_uv/AUDIT.txt` and
 `predictions/team_27_T3_primary_v1.csv`.
 
 **This is not a lower-tier copy of our Tier 1 entry.** It is a different
@@ -84,10 +84,11 @@ See [`docs/EVIDENCE.md`](docs/EVIDENCE.md) sections 2 and 13.
 | [`docs/METHOD.md`](docs/METHOD.md) | **How to build this entry again from nothing.** The six prompt sections, listwise against pointwise, the sign convention, the 8-draw ensemble, the arm-order randomisation, the parser, the local vLLM settings. |
 | [`docs/EVIDENCE.md`](docs/EVIDENCE.md) | **Why this method and not another.** Every measurement, with the file that produced it. The nulls get the same space as the wins. |
 
-**One more item needs a file copy, not a decision.** `raw_data_deposit/` still
-holds six files of the superseded first pass. Replace them with the files of
-`forecast/runs/2026-08-30_B_pop_on_v2/` and
-`forecast/runs/2026-08-30_A_pop_off_v2/`, or remove them, before the Zenodo
+**CLOSED 2026-08-31.** `raw_data_deposit/` held six files of a superseded first
+pass. They are removed. The folder now holds the pair that produced the
+submitted values, `forecast/runs/2026-08-31_B_pop_on_t050_uv/` and
+`forecast/runs/2026-08-31_A_pop_off_t050_uv/`, and the whole method search in
+`method_search/`. Nothing stale is left before the Zenodo
 release. No submitted value comes from them. See `registration.md` item K.2.
 
 ## What each folder holds
@@ -98,8 +99,8 @@ release. No submitted value comes from them. See `registration.md` item K.2.
 | `docs/` | this entry | `METHOD.md` and `EVIDENCE.md`, described above. |
 | `registration.md` | this entry | The GUIDE-LLM registration form, filled. |
 | `metadata.json` | this entry | Team, tier, entry label, model list, coverage, disclosure class, and the SHA-256 of the prediction file. |
-| `forecast/` | this entry | **The whole pipeline, self-contained.** `core.py` (the prompt skeleton and the parsers), `megastudy.py` (this study as one spec), `extract_materials.py` (step 1), `run_vllm.py` (step 2), `build_predictions.py` (step 3, with the unit audits `make check` cannot make), `materials/` (the 16 stimuli and the 13 outcome blocks, extracted), `runs/` (one directory for each run, holding `forecast.jsonl`, `forecast.meta.json` and `AUDIT.txt`), `tests/` and `PROVENANCE.json`. It reads only files of this repository and makes no network call. **The submitted run is `runs/2026-08-30_B_pop_on_v2/`** and the control is `runs/2026-08-30_A_pop_off_v2/`. `runs/B_pop_on/` and `runs/A_pop_off/` are the **superseded** first pass, kept as a record; no submitted value comes from them. |
-| `raw_data_deposit/` | this entry | `variantA_pop_off_T3_ate.csv` — the control's 208 rows, for comparison only; it is **not** submitted. **The other files here are copies of the superseded first pass** (`forecast_primary_B_pop_on.jsonl`, `forecast_variantA_pop_off.jsonl`, `forecast.meta.json`, the two `AUDIT_*.txt` files and `COMPARE_A_vs_B.txt`). They must be replaced by the rerun's files before the Zenodo release. Sizes and hashes are in `registration.md` item K.2. |
+| `forecast/` | this entry | **The whole pipeline, self-contained.** `core.py` (the prompt skeleton and the parsers), `megastudy.py` (this study as one spec), `extract_materials.py` (step 1), `run_vllm.py` (step 2), `build_predictions.py` (step 3, with the unit audits `make check` cannot make), `materials/` (the 16 stimuli and the 13 outcome blocks, extracted), `runs/` (one directory for each run, holding `forecast.jsonl`, `forecast.meta.json` and `AUDIT.txt`), `tests/` and `PROVENANCE.json`. It reads only files of this repository and makes no network call. **The submitted run is `runs/2026-08-31_B_pop_on_t050_uv/`** and the control is `runs/2026-08-31_A_pop_off_t050_uv/`, both at temperature 0.5 and both produced under `uv run`. `runs/2026-08-31_*_t050/` (pre-uv), `runs/2026-08-30_*_v2/` (temperature 0.85), `runs/B_pop_on/` and `runs/A_pop_off/` are **superseded**, kept as a record; no submitted value comes from them. A `README.md` in `forecast/` explains how to run each step. |
+| `raw_data_deposit/` | this entry | The submitted pair and nothing stale: `forecast_B_pop_on_t050_uv.jsonl`, `forecast_A_pop_off_t050_uv.jsonl`, their two `.meta.json` files, `AUDIT_B_pop_on_t050_uv.txt`, `AUDIT_A_pop_off_t050_uv.txt`, `COMPARE_A_vs_B_t050_uv.txt`, and `variantA_pop_off_t050_uv_T3_ate.csv` — the control's 208 rows, for comparison only; it is **not** submitted. `method_search/` holds all 80 runs of the method search (registration item J.1). Sizes and hashes are in `registration.md` item K.2. |
 | `survey/` | the benchmark | The instrument and the 16 intervention texts, as shipped. This entry reads them and does not modify them. |
 | `codebook.csv` | the benchmark | The variable dictionary. It defines the 13 outcomes and their scales. |
 | `scripts/` | the benchmark | The organizers' own R helpers, unmodified. `check.R` is the only verdict that counts. |
@@ -130,24 +131,24 @@ condition order against `scripts/lib/submission_spec.R`.
 ```bash
 # The SUBMITTED variant B. --population adds the recruitment-quota block.
 python forecast/run_vllm.py --model Qwen/Qwen3.8-27B --samples 8 \
-    --temperature 0.85 --population --go --label B_pop_on_v2
+    --temperature 0.5 --population --go --label B_pop_on_t050_uv
 
 # The control variant A. The same run, without that block.
 python forecast/run_vllm.py --model Qwen/Qwen3.8-27B --samples 8 \
-    --temperature 0.85 --go --label A_pop_off_v2
+    --temperature 0.5 --go --label A_pop_off_t050_uv
 ```
 
 Without `--go` this is a dry run: it prints the prompt sizes and **runs
 nothing**. Add `--print-prompts` to see every rendered prompt and the
 `scale_flip` table. Read the rendered prompt before you run anything. With
 `--go` it costs $0.00 and writes `forecast.jsonl` and `forecast.meta.json` into
-`forecast/runs/<run date>_<label>/`. Each variant takes about 2.0 minutes on one
+`forecast/runs/<run date>_<label>/`. Each variant takes about 1.8 minutes on one
 H100.
 
 **Step 3 — build the prediction file and audit it.**
 
 ```bash
-python forecast/build_predictions.py forecast/runs/2026-08-30_B_pop_on_v2 \
+python forecast/build_predictions.py forecast/runs/2026-08-31_B_pop_on_t050_uv \
     --out predictions/team_27_T3_primary_v1.csv
 ```
 
