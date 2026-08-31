@@ -538,7 +538,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   1. **Broockman et al., 42 cells, 172 arms, 61,869 people.** Our **development set**. It was used to
      compare listwise against pointwise, to sweep temperature, to test the demographic block, and to
      test the framing ensemble. Read from the Ashokkumar et al. (2026) Code Ocean capsule 9843791,
-     via `ashokkumar_bench/data/megastudies/`.
+     via the published megastudy archive.
   2. **Voelkel et al. (2025), 4 cells, 40 arms, 13,821 public individual responses.** Our
      **confirmation set**. Treatment texts from the study's own OSF materials, doi
      `10.17605/OSF.IO/2MCF8`. It is a different study, on climate attitudes, with no measure of
@@ -599,8 +599,8 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   the improvement threshold. It also states that the target megastudy is never used for selection.
   **How many configurations were scored: 34 runs, 32 of them in the indexed grid.** Every one is
   listed, winners and losers together, in `docs/EVIDENCE.md` section 11 and in
-  `modelbench/output/tier3/index.csv`; the two population-block runs are in
-  `modelbench/output/tier3/runs/` and are reported in `docs/EVIDENCE.md` section 5c.
+  `raw_data_deposit/method_search/INDEX.csv`; the two population-block runs are in
+  `raw_data_deposit/method_search/runs/openrouter_qwen/` and are reported in `docs/EVIDENCE.md` section 5c.
   **The preregistration allowed six on Broockman. We scored 17 on Broockman. See J.2.** The grid is
   3 models x 2 modes x up to 5 temperatures x 2 public studies. A further 9 runs of the earlier
   pointwise-with-personas forecaster are reported in `docs/EVIDENCE.md` sections 5c, 5d, 6 and 9.
@@ -657,7 +657,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
     pointwise prompt: +0.0592 (p = 0.5151), -0.1235 (p = 0.6395), -0.1678 (p = 0.1440). The fourth
     used the NEW structured listwise template that this entry actually uses, and is therefore the
     one that counts: **Broockman -0.0029 (p = 0.8671), Voelkel +0.0024 (p = 0.3910)**
-    (`modelbench/output/tier3/runs/2026-08-30_Qwen3.8-27B-local_*_listwise_t085_pop/RESULTS.txt`
+    (`raw_data_deposit/method_search/runs/openrouter_qwen/2026-08-30_Qwen3.8-27B-local_*_listwise_t085_pop/RESULTS.txt`
     against the same runs without `_pop`). The block does not help and it does not hurt.
     **It is in the submitted prompt anyway**, for consistency with `team_27`'s Tier 1 entry, which
     describes the same population from the same quota file. That is a consistency choice, not a
@@ -686,7 +686,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   in the whole grid scores **+0.6600** against published gpt-4's **+0.7454**. We are 0.085 below.
   The submitted configuration itself — local `Qwen/Qwen3.8-27B`, listwise, t = 0.85, population
   block on — scores **+0.6509** on Voelkel
-  (`modelbench/output/tier3/runs/2026-08-30_Qwen3.8-27B-local_voelkel2025_listwise_t085_pop/RESULTS.txt`),
+  (`raw_data_deposit/method_search/runs/openrouter_qwen/2026-08-30_Qwen3.8-27B-local_voelkel2025_listwise_t085_pop/RESULTS.txt`),
   which is 0.095 below gpt-4. We report this and do not explain it away. We did not test whether the
   gap is significant; with 4 cells we could not.
 - **J.2 Selection blinding †** — confirm no selection used outcome data from this study:
@@ -706,9 +706,9 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 
   | # | The rule, and where it is written | What we actually did |
   |---|---|---|
-  | 1 | **"AT MOST SIX configurations may be scored on Broockman... A seventh configuration voids the comparison."** PREREG lines 77-78. | **We scored far more than six.** `modelbench/output/tier3/runs/` holds **34 run directories**, 17 of them on Broockman; `modelbench/output/tier3/index.csv` indexes 32 of them, 16 on Broockman. By the rule's own words, the comparison is void. |
-  | 2 | **The held-out set `voelkel2025` "is scored ONE TIME, at the end, on the single winning configuration."** PREREG lines 26-27. | **We scored it 17 times**, on 17 configurations (`modelbench/output/tier3/runs/*voelkel2025*`). It was used as a second development set, not as a held-out set. It is not held out any more. |
-  | 3 | **The test is a PAIRED BOOTSTRAP: 10,000 resamples of the 42 cell indices, a 95 per cent percentile interval, and a minimum mean difference of 0.14.** PREREG lines 55-60 and the threshold that follows them. | **We report a paired t-test** (`modelbench/tier3_tests.py:63`, `scipy.stats.ttest_rel`). **No bootstrap interval exists on disk** for any Tier 3 comparison. The preregistered decision rule was never applied, so no configuration was ever formally accepted or rejected by it. |
+  | 1 | **"AT MOST SIX configurations may be scored on Broockman... A seventh configuration voids the comparison."** PREREG lines 77-78. | **We scored far more than six.** `raw_data_deposit/method_search/runs/openrouter_qwen/` holds **34 run directories**, 17 of them on Broockman; `raw_data_deposit/method_search/INDEX.csv` indexes 32 of them, 16 on Broockman. By the rule's own words, the comparison is void. |
+  | 2 | **The held-out set `voelkel2025` "is scored ONE TIME, at the end, on the single winning configuration."** PREREG lines 26-27. | **We scored it 17 times**, on 17 configurations (`raw_data_deposit/method_search/runs/openrouter_qwen/*voelkel2025*`). It was used as a second development set, not as a held-out set. It is not held out any more. |
+  | 3 | **The test is a PAIRED BOOTSTRAP: 10,000 resamples of the 42 cell indices, a 95 per cent percentile interval, and a minimum mean difference of 0.14.** PREREG lines 55-60 and the threshold that follows them. | **We report a paired t-test** (the method-search test script, `scipy.stats.ttest_rel`). **No bootstrap interval exists on disk** for any Tier 3 comparison. The preregistered decision rule was never applied, so no configuration was ever formally accepted or rejected by it. |
   | 4 | **Configuration 1, `baseline_seed2`, is the abandonment check.** PREREG section 7 row 1 and section 10: if a second seed of the baseline moves the score by more than 0.14, the noise floor is larger than the effect, and the search stops. | **It was never run.** No `baseline_seed2` run directory exists. **We never measured our own noise floor**, so we cannot say how much of any difference below 0.14 is noise. |
 
   **The consequence, stated plainly. The preregistered confirmatory comparison is void by its own
@@ -720,7 +720,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 
   **What is NOT in doubt.** The measurements themselves are real, reproducible and unfabricated.
   Every run directory holds its own prompts, its own raw generations, its own seed and its own
-  score. `modelbench/output/tier3/index.csv` lists every run, the losers with the winners. Nothing
+  score. `raw_data_deposit/method_search/INDEX.csv` lists every run, the losers with the winners. Nothing
   was dropped, re-run to a better number, or reported selectively. **The problem is the inference,
   not the data.**
 
@@ -742,7 +742,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   network call and no paid call. `forecast/PROVENANCE.json` records, for every file, where it was
   copied from, its source SHA-256, what was kept and what was removed.
   `forecast/core.py` and `forecast/run_vllm.py` are adapted copies of
-  `modelbench/structured_forecast.py` and `modelbench/structured_forecast_vllm.py`. **One change was
+  `forecast/core.py` and `forecast/run_vllm.py`. **One change was
   made to `render`:** the source always asks for "points of the 0-100 scale", but 2 of the 13
   outcomes of this study are not on that scale (`donation_ams` is 0-10 dollars, `newsletter_signup`
   is a rate). The study spec now supplies three more slot functions — `ask_units`, `scale_top` and
@@ -879,12 +879,12 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   texts: one listwise prompt is about 51,210 characters, about 10,451 tokens; 104 calls; the same
   work on the hosted flash route would have cost about $0.174.
   **Cost of the method search, outside the submission.** Measured by summing `spend_usd` over every
-  `*.meta.json` under `modelbench/output`: **$4.0108** in OpenRouter charges. 57 files hold a
+  `*.meta.json` under `raw_data_deposit/method_search/`: **$4.0108** in OpenRouter charges. 57 files hold a
   `spend_usd` field and **46 of them are non-zero**: 24 paid runs of the 32-run Tier 3 grid, 14
   probe runs, and 8 runs of the earlier forecaster. The 8 local runs of the grid cost $0.00. Of the
-  total, **$0.6139** is the 32-run Tier 3 grid (`modelbench/output/tier3/index.csv`, column `spend`,
+  total, **$0.6139** is the 32-run Tier 3 grid (`raw_data_deposit/method_search/INDEX.csv`, column `spend`,
   which sums to the same figure) and **$2.2821** is the 2026-08-29 flash probe series
-  (`modelbench/output/runs/2026-08-29_openrouter_flash_probe/`). No value from any paid call reaches
+  (the flash probe series). No value from any paid call reaches
   the deposited answers.
   **This figure supersedes the $0.203, $2.40 and $3.45 recorded earlier in the project.** Those are
   stale: the grid grew after each was written. $4.0108 is the sum over the files as they now stand.

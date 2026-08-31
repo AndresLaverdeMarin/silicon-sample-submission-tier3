@@ -1,0 +1,16 @@
+run              2026-08-31_Qwen3.8-27B_voelkel2025_listwise_t050_s2
+model            Qwen/Qwen3.8-27B
+study            voelkel2025   mode listwise   temperature 0.5   samples 8
+calls            32   parse rate 100.0%  (320/320 arm answers)
+wall clock       0.3 min   tokens in 178,488 out 2,272
+units            points of the 0-100 outcome
+------------------------------------------------------------------------------
+  method                                 within  within>=5     pooled   arms  cells
+  this model                            +0.5792    +0.5792    +0.4861     40      4
+  gpt-4, published                      +0.7454    +0.7454    +0.6957     40      4
+------------------------------------------------------------------------------
+  per cell    r      arms  cell_id
+    +0.7533    10   voelkel2025__belief
+    +0.5962    10   voelkel2025__concern
+    +0.5688    10   voelkel2025__intent
+    +0.3987    10   voelkel2025__policies

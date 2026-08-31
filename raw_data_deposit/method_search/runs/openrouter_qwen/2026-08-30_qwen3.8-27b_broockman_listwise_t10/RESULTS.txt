@@ -1,0 +1,64 @@
+
+study            broockman
+records          336
+answers used     1,338
+cells scored     42
+arms             172
+------------------------------------------------------------
+OUR structured r +0.3468
+gpt-4 published  +0.1999
+human experts    +0.2546
+------------------------------------------------------------
+CONTAMINATION DIAGNOSTICS   units: rescaled 0-1 outcome
+  median |pred - truth|   0.0246
+  arms within 0.25         170/172
+  arms within 0.05         138/172
+  mean |pred|             0.0319
+  mean |truth|            0.0489
+  implied slope           0.651   (1.0 = same spread; >1 = we overshoot)
+------------------------------------------------------------
+per cell    r      arms  cell_id
+  +0.9999     3   broockman_oppose_allowing_all_americans_to_vote_by_m
+  +0.9999     3   broockman_oppose_requiring_transgender_individuals_t
+  +0.9982     3   broockman_oppose_banning_cash_bail__na
+  +0.9972     3   broockman_oppose_allowing_people_to_carry_concealed_
+  +0.9908     4   broockman_oppose_making_it_easier_to_drill_for_oil_a
+  +0.9827     5   broockman_oppose_increasing_funding_for_border_secur
+  +0.9815     5   broockman_support_increasing_funding_for_border_secu
+  +0.9393     3   broockman_oppose_right_to_work_laws__na
+  +0.9286     3   broockman_support_right_to_work_laws__na
+  +0.8854     3   broockman_oppose_increasing_funding_for_renewable_en
+  +0.8555     4   broockman_oppose_lowering_the_medicare_eligibility_a
+  +0.8372     4   broockman_oppose_increasing_defense_spending__na
+  +0.7820     5   broockman_support_reducing_police_funding_in_order_t
+  +0.7411     4   broockman_oppose_allowing_medicare_to_negotiate_drug
+  +0.6927     5   broockman_oppose_legalizing_marijuana__na
+  +0.6628     3   broockman_support_requiring_transgender_athletes_to_
+  +0.5904     3   broockman_oppose_increasing_taxes_on_high_earning_am
+  +0.5562     6   broockman_support_cancelling_student_loan_debt__na
+  +0.5494     3   broockman_support_lowering_the_medicare_eligibility_
+  +0.4372     4   broockman_support_allowing_all_americans_to_vote_by_
+  +0.4211     7   broockman_support_making_abortion_legal_in_all_cases
+  +0.4025     5   broockman_support_increasing_defense_spending__na
+  +0.3945     5   broockman_oppose_increasing_legal_immigration__na
+  +0.3460     4   broockman_oppose_requiring_background_checks_for_gun
+  +0.3343     4   broockman_support_making_it_easier_to_drill_for_oil_
+  +0.3273     5   broockman_oppose_increasing_the_federal_minimum_wage
+  +0.3250     3   broockman_support_allowing_people_to_carry_concealed
+  +0.3180     7   broockman_oppose_making_abortion_legal_in_all_cases_
+  +0.2236     4   broockman_support_legalizing_marijuana__na
+  +0.1911     5   broockman_support_the_dream_act__na
+  +0.0469     3   broockman_support_banning_cash_bail__na
+  -0.0062     5   broockman_oppose_the_dream_act__na
+  -0.0402     4   broockman_support_increasing_taxes_on_high_earning_a
+  -0.0580     3   broockman_support_increasing_funding_for_renewable_e
+  -0.1248     5   broockman_oppose_cancelling_student_loan_debt__na
+  -0.3012     3   broockman_support_allowing_medicare_to_negotiate_dru
+  -0.5205     4   broockman_support_increasing_legal_immigration__na
+  -0.6219     4   broockman_support_requiring_background_checks_for_gu
+  -0.7398     5   broockman_oppose_reducing_police_funding_in_order_to
+  -0.8956     5   broockman_support_increasing_the_federal_minimum_wag
+  -0.9060     3   broockman_oppose_requiring_transgender_athletes_to_c
+  -0.9590     3   broockman_support_requiring_transgender_individuals_
+
+predictions.csv  172 rows

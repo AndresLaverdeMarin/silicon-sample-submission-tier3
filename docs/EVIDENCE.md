@@ -30,10 +30,10 @@ almost all of them:
 
 | File | Produced by | What it holds |
 |---|---|---|
-| `modelbench/output/tier3/index.csv` | `modelbench/tier3_index.py` | The 32-run grid, scored three ways. |
-| `modelbench/output/tier3/TESTS.txt` | `modelbench/tier3_tests.py` | Every paired significance test. |
-| `ashokkumar_bench/output/scorecard_Qwen3.8-27B-v10-broockman.json` | `ashokkumar_bench/bench/task.py score` | Our per-respondent simulation baseline. |
-| `modelbench/output/tier3/runs/*/forecast.jsonl` | `modelbench/structured_forecast*.py` | One record for each call, with the truth, the gpt-4 forecast and the expert forecast beside every arm. Sections 5c, 8 and 9 recompute from these. |
+| `raw_data_deposit/method_search/INDEX.csv` | the method-search scorer | The 32-run grid, scored three ways. |
+| the method-search test report | the method-search test script | Every paired significance test. |
+| the v10 per-respondent scorecard | the archive's own scorer | Our per-respondent simulation baseline. |
+| `raw_data_deposit/method_search/runs/*/*/forecast.jsonl.gz` | `forecast/core.py` | One record for each call, with the truth, the gpt-4 forecast and the expert forecast beside every arm. Sections 5c, 8 and 9 recompute from these. |
 
 Two files of **this** deposit are also cited, and they are here:
 `forecast/runs/2026-08-30_B_pop_on_v2/AUDIT.txt` and
@@ -82,7 +82,7 @@ never as a verdict.
 ## 1. EXPLORATORY WIN — listwise beats pointwise
 
 Six paired tests, three models, two studies, temperature 1.0.
-Source: `modelbench/output/tier3/TESTS.txt` section 1.
+Source: the method-search test report section 1.
 
 | Study | Model | listwise | pointwise | difference | t | p | wins |
 |---|---|---|---|---|---|---|---|
@@ -112,10 +112,10 @@ never run (section 13, breach 3). Read the number as a direction, not as a
 verdict.
 
 The baseline is our own Tier-1-style per-respondent simulation, run on the same
-42 Broockman cells: `ashokkumar_bench/output/RESULTS_Qwen3.8-27B-v10-broockman.txt`,
+42 Broockman cells: the v10 per-respondent simulation result,
 mean within-cell **r_raw = 0.191694**.
 
-Source: `modelbench/output/tier3/TESTS.txt` section 2.
+Source: the method-search test report section 2.
 
 | Forecast run | forecast r | simulation r | difference | t | p | wins |
 |---|---|---|---|---|---|---|
@@ -129,9 +129,9 @@ Source: `modelbench/output/tier3/TESTS.txt` section 2.
 9,000 synthetic people and computing the effect from their answers — on this
 study, on this metric. It also needs about 380 times fewer calls: **336** against
 **128,400**
-(`modelbench/output/runs/2026-08-30_qwen3.8-flash_broockman_listwise_t05/forecast.meta.json`,
+(`raw_data_deposit/method_search/`,
 field `calls`, against the line count of
-`modelbench/output/runs/2026-08-28_item-mode_v10_broockman/answers_Qwen3.8-27B-v10_broockman.jsonl`).
+`raw_data_deposit/method_search/`).
 
 **What this does NOT mean.** It does not mean simulation is the wrong approach
 for the benchmark. Tier 1 is scored on distributional realism as well as on
@@ -142,9 +142,9 @@ answer different questions.
 
 ## 3. Reference points on the same 42 Broockman cells
 
-Both reference values are computed by `modelbench/tier3_index.py` from the same
+Both reference values are computed by the method-search scorer from the same
 archive rows as our own score, so they are the same quantity.
-Source: `modelbench/output/tier3/index.csv`, columns `gpt4_within` and
+Source: `raw_data_deposit/method_search/INDEX.csv`, columns `gpt4_within` and
 `expert_within`.
 
 | Forecaster | within-cell r |
@@ -169,7 +169,7 @@ megastudy**: climate attitudes, a 13-item instrument, and ten texts that all
 argue the same way, exactly like the target's 16 interventions. It is the
 better guide to how the entry will score.
 
-Source: `modelbench/output/tier3/index.csv`, `study = voelkel2025`.
+Source: `raw_data_deposit/method_search/INDEX.csv`, `study = voelkel2025`.
 
 | Forecaster | within-cell r (4 cells) |
 |---|---|
@@ -180,7 +180,7 @@ Source: `modelbench/output/tier3/index.csv`, `study = voelkel2025`.
 | Our worst listwise, t = 1.6 | +0.4086 |
 
 The submitted configuration's own Voelkel score is in
-`modelbench/output/tier3/runs/2026-08-30_Qwen3.8-27B-local_voelkel2025_listwise_t085_pop/RESULTS.txt`.
+`raw_data_deposit/method_search/runs/openrouter_qwen/2026-08-30_Qwen3.8-27B-local_voelkel2025_listwise_t085_pop/RESULTS.txt`.
 
 **We are 0.085 below gpt-4 at our best, and 0.095 below in the configuration we
 actually submitted.** That is on the study that looks most like the target. We
@@ -199,7 +199,7 @@ and that did not.
 ### 5a. NULL — model choice
 
 `qwen/qwen3.8-flash` against `qwen/qwen3.8-27b`, and hosted against local.
-Source: `modelbench/output/tier3/TESTS.txt` section 3.
+Source: the method-search test report section 3.
 
 | Comparison | difference | t | p | wins |
 |---|---|---|---|---|
@@ -223,7 +223,7 @@ three rows). That is the check that makes the local submission defensible.
 ### 5b. NULL — temperature
 
 Every pair of temperatures inside one model and one study.
-Source: `modelbench/output/tier3/TESTS.txt` section 4.
+Source: the method-search test report section 4.
 
 **0 of 46 paired tests reach p < 0.05.** The smallest p value in the whole
 block is 0.0543 (`qwen3.8-27b` broockman, t = 0.5 against t = 1.6).
@@ -243,7 +243,7 @@ kept for a reason that is not performance.
 **The three OLD tests used a different prompt.** They ran on the earlier
 pointwise `direct_forecast.py` template, not on the structured listwise
 template that this entry uses.
-Source: `modelbench/output/tier3/TESTS.txt` section 8.
+Source: the method-search test report section 8.
 
 | Study | with the block | without | difference | t | p |
 |---|---|---|---|---|---|
@@ -258,7 +258,7 @@ was run again, on the template that ships.
 **The NEW test, on the submitted template.** Measured 2026-08-30. Local
 `Qwen/Qwen3.8-27B`, listwise, temperature 0.85, 8 draws — the exact
 configuration of the entry. Paired over the same cells.
-Source: `modelbench/output/tier3/runs/2026-08-30_Qwen3.8-27B-local_broockman_listwise_t085_pop/RESULTS.txt`
+Source: `raw_data_deposit/method_search/runs/openrouter_qwen/2026-08-30_Qwen3.8-27B-local_broockman_listwise_t085_pop/RESULTS.txt`
 and `..._voelkel2025_listwise_t085_pop/RESULTS.txt`, each against the same run
 without `_pop`.
 
@@ -301,7 +301,7 @@ did not change this conclusion. No submitted value comes from them.
 ### 5d. NULL — the framing-sentence ensemble
 
 Ten different opening sentences, so 45 pairwise comparisons inside one run.
-Source: `modelbench/output/tier3/TESTS.txt` section 10.
+Source: the method-search test report section 10.
 
 | Run | best framing | worst framing | pairwise tests at p < 0.05 |
 |---|---|---|---|
@@ -336,7 +336,7 @@ draws) replaces it.
 on **opposition**. The answer was never negated. Half the cells were scored
 with the sign reversed.
 
-**What it cost.** Source: `modelbench/output/tier3/TESTS.txt` section 7.
+**What it cost.** Source: the method-search test report section 7.
 
 | Run | within-cell r |
 |---|---|
@@ -363,7 +363,7 @@ Check the sign before you change the method.
 
 At temperature 0, two calls that hold the **same** arms in a **different**
 order return different numbers.
-Source: `modelbench/output/tier3/TESTS.txt` section 6.
+Source: the method-search test report section 6.
 
 | Run | draw pairs | agreement r |
 |---|---|---|
@@ -394,7 +394,7 @@ information, and they dominate the average.
 
 **Measured: the score falls as the cell gets larger.** Mean |r| for each cell
 size, over the 42 Broockman cells of the `qwen3.8-27b` pointwise run
-(`modelbench/output/tier3/runs/2026-08-30_qwen3.8-27b_broockman_pointwise_t10/forecast.jsonl`,
+(`raw_data_deposit/method_search/runs/openrouter_qwen/2026-08-30_qwen3.8-27b_broockman_pointwise_t10/forecast.jsonl.gz`,
 fields `value_truth_units` and `human`):
 
 | Arms in the cell | Cells | Mean \|r\| |
@@ -431,7 +431,7 @@ that carry information, where we are below both. Which sentence is the honest
 summary depends on a metric choice we have not been able to make.
 
 **Restricting to cells with 5 arms or more changes the picture.**
-Source: `modelbench/output/tier3/TESTS.txt` section 5, 15 cells.
+Source: the method-search test report section 5, 15 cells.
 
 | Model | listwise | pointwise | difference | t | p | wins |
 |---|---|---|---|---|---|---|
@@ -482,7 +482,7 @@ should have been submitted, not the t = 0.85 run.
 **What must happen next.** Read the benchmark preregistration and find the
 exact scored quantity, before any method choice rests on either metric. We do
 not have that answer and we do not guess at it. This is also flagged in
-`modelbench/tier3_index.py` lines 15-20.
+the method-search scorer lines 15-20.
 
 **What this does NOT change.** The submitted file is fixed and the lock is
 2026-08-31. The two configurations are close: the submitted run scores +0.3398
@@ -498,9 +498,9 @@ not change which run *is* best.
 **What happened.** The first Voelkel runs sent one-line paraphrases of each
 treatment, taken from Table 2 of the paper. The real treatment texts are on the
 study's own OSF page, doi `10.17605/OSF.IO/2MCF8`, and were already on disk at
-`ashokkumar_bench/data/osf/materials/`.
+the studies' own OSF materials.
 
-Source: `modelbench/output/tier3/TESTS.txt` section 9.
+Source: the method-search test report section 9.
 
 | Stimulus sent | within-cell r (4 cells) |
 |---|---|
@@ -517,7 +517,7 @@ not.**
 A *backfire* is an arm whose true effect goes the **wrong** way: a message
 meant to raise belief that lowers it. Voelkel has four such arm-outcome pairs.
 Here is what each run actually predicted, from
-`modelbench/output/runs/2026-08-30_flash_direct_voelkel_v3_fulltext/forecast.jsonl`
+`raw_data_deposit/method_search/`
 (fields `value` and `human`, meaned over the 50 draws of each arm):
 
 | Cell | Arm | True effect | Predicted, real texts |
@@ -577,8 +577,8 @@ Say this plainly too.
 
 ## 11. The full grid, all 32 runs
 
-Source: `modelbench/output/tier3/index.csv`, produced by
-`modelbench/tier3_index.py`. `spend` is in United States dollars.
+Source: `raw_data_deposit/method_search/INDEX.csv`, produced by
+the method-search scorer. `spend` is in United States dollars.
 `Qwen3.8-27B-local` is `Qwen/Qwen3.8-27B` on local weights and always costs
 $0.00.
 
@@ -683,9 +683,9 @@ rules.**
 
 | # | The rule, and where it is written | What we actually did | The cost |
 |---|---|---|---|
-| 1 | "AT MOST SIX configurations may be scored on Broockman. A seventh configuration voids the comparison." PREREG lines 77-78. | `modelbench/output/tier3/runs/` holds **34 run directories, 17 of them on Broockman**. `index.csv` indexes 32, 16 on Broockman. | By the rule's own words the comparison is **void**. Any p value below is a p value chosen from many. |
-| 2 | The held-out set `voelkel2025` "is scored ONE TIME, at the end, on the single winning configuration." PREREG lines 26-27. | **Scored 17 times**, on 17 configurations (`modelbench/output/tier3/runs/*voelkel2025*`). | **We have no held-out set.** Voelkel became a second development set. Section 4's Voelkel numbers cannot confirm anything selected on Broockman. |
-| 3 | The test is a **paired bootstrap**: 10,000 resamples of the 42 cell indices, a 95 per cent percentile interval, and a minimum mean difference of **0.14**. PREREG lines 55-60. | We report a **paired t-test** (`modelbench/tier3_tests.py:63`, `scipy.stats.ttest_rel`). **No bootstrap interval for any Tier 3 comparison exists on disk.** | The preregistered decision rule was never applied. **No configuration was ever formally accepted or rejected.** Note that the headline difference, +0.2174, would have cleared the 0.14 threshold; the interval was never computed, so we cannot say whether it would have cleared the interval. |
+| 1 | "AT MOST SIX configurations may be scored on Broockman. A seventh configuration voids the comparison." PREREG lines 77-78. | `raw_data_deposit/method_search/runs/openrouter_qwen/` holds **34 run directories, 17 of them on Broockman**. `index.csv` indexes 32, 16 on Broockman. | By the rule's own words the comparison is **void**. Any p value below is a p value chosen from many. |
+| 2 | The held-out set `voelkel2025` "is scored ONE TIME, at the end, on the single winning configuration." PREREG lines 26-27. | **Scored 17 times**, on 17 configurations (`raw_data_deposit/method_search/runs/openrouter_qwen/*voelkel2025*`). | **We have no held-out set.** Voelkel became a second development set. Section 4's Voelkel numbers cannot confirm anything selected on Broockman. |
+| 3 | The test is a **paired bootstrap**: 10,000 resamples of the 42 cell indices, a 95 per cent percentile interval, and a minimum mean difference of **0.14**. PREREG lines 55-60. | We report a **paired t-test** (the method-search test script, `scipy.stats.ttest_rel`). **No bootstrap interval for any Tier 3 comparison exists on disk.** | The preregistered decision rule was never applied. **No configuration was ever formally accepted or rejected.** Note that the headline difference, +0.2174, would have cleared the 0.14 threshold; the interval was never computed, so we cannot say whether it would have cleared the interval. |
 | 4 | Configuration 1, `baseline_seed2`, is the abandonment check: if a second seed of the baseline moves the score by more than 0.14, the noise floor is larger than the effect and the search stops. PREREG section 7 row 1 and section 10. | **Never run.** No `baseline_seed2` run directory exists. | **We never measured our own noise floor.** For any difference smaller than 0.14 we cannot say how much is signal. That covers every null in section 5 and the model-choice differences in 5a. |
 
 ### What this changes, and what it does not

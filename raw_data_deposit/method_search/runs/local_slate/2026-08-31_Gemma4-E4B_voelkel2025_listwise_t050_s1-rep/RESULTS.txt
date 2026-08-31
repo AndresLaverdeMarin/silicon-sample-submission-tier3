@@ -1,0 +1,16 @@
+run              2026-08-31_Gemma4-E4B_voelkel2025_listwise_t050_s1-rep
+model            google/gemma-4-E4B-it
+study            voelkel2025   mode listwise   temperature 0.5   samples 8
+calls            32   parse rate 100.0%  (320/320 arm answers)
+wall clock       0.1 min   tokens in 179,072 out 1,958
+units            points of the 0-100 outcome
+------------------------------------------------------------------------------
+  method                                 within  within>=5     pooled   arms  cells
+  this model                            +0.4451    +0.4451    +0.4242     40      4
+  gpt-4, published                      +0.7454    +0.7454    +0.6957     40      4
+------------------------------------------------------------------------------
+  per cell    r      arms  cell_id
+    +0.5467    10   voelkel2025__concern
+    +0.4934    10   voelkel2025__belief
+    +0.4176    10   voelkel2025__policies
+    +0.3227    10   voelkel2025__intent

@@ -1,0 +1,25 @@
+
+study            voelkel2025
+records          320
+answers used     306
+cells scored     4
+arms             40
+------------------------------------------------------------
+OUR structured r +0.4151
+gpt-4 published  +0.7454
+------------------------------------------------------------
+CONTAMINATION DIAGNOSTICS   units: points of 0-100
+  median |pred - truth|   0.9299
+  arms within 25         40/40
+  arms within 5         40/40
+  mean |pred|             1.9627
+  mean |truth|            1.3571
+  implied slope           1.446   (1.0 = same spread; >1 = we overshoot)
+------------------------------------------------------------
+per cell    r      arms  cell_id
+  +0.6617    10   voelkel2025__belief
+  +0.4504    10   voelkel2025__policies
+  +0.2780    10   voelkel2025__intent
+  +0.2703    10   voelkel2025__concern
+
+predictions.csv  40 rows

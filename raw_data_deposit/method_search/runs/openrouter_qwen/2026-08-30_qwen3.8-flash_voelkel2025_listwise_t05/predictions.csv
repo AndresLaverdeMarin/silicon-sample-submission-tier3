@@ -1,0 +1,41 @@
+condition,outcome,ate
+Binding Framing,belief,-1.157143
+Binding Framing,concern,-1.214286
+Binding Framing,intent,-1.550000
+Binding Framing,policies,-2.375000
+Consensus Framing 1,belief,3.771429
+Consensus Framing 1,concern,1.728571
+Consensus Framing 1,intent,1.712500
+Consensus Framing 1,policies,2.162500
+Consensus Framing 2,belief,3.971429
+Consensus Framing 2,concern,2.000000
+Consensus Framing 2,intent,1.925000
+Consensus Framing 2,policies,2.512500
+Dire But Solvable Framing,belief,3.214286
+Dire But Solvable Framing,concern,4.000000
+Dire But Solvable Framing,intent,3.000000
+Dire But Solvable Framing,policies,3.325000
+Free Market Framing,belief,1.600000
+Free Market Framing,concern,0.828571
+Free Market Framing,intent,1.450000
+Free Market Framing,policies,2.137500
+Gains Framing,belief,2.414286
+Gains Framing,concern,2.228571
+Gains Framing,intent,2.375000
+Gains Framing,policies,4.087500
+High Social Distance Framing,belief,1.000000
+High Social Distance Framing,concern,1.000000
+High Social Distance Framing,intent,0.325000
+High Social Distance Framing,policies,0.425000
+Purity Framing,belief,2.342857
+Purity Framing,concern,3.785714
+Purity Framing,intent,2.900000
+Purity Framing,policies,2.550000
+System Preservation Framing,belief,1.600000
+System Preservation Framing,concern,3.014286
+System Preservation Framing,intent,2.100000
+System Preservation Framing,policies,2.362500
+Warmth Framing,belief,0.200000
+Warmth Framing,concern,0.042857
+Warmth Framing,intent,0.287500
+Warmth Framing,policies,0.262500

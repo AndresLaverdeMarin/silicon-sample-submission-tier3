@@ -96,7 +96,7 @@ submitted value comes from them.** See section 3.4.
 | `forecast/PROVENANCE.json` | For every file: where it came from, its source SHA-256, what was kept and what was removed. |
 
 `forecast/core.py` and `forecast/run_vllm.py` are adapted copies of
-`modelbench/structured_forecast.py` and `modelbench/structured_forecast_vllm.py`.
+`forecast/core.py` and `forecast/run_vllm.py`.
 The originals stay in the sibling working project `modelbench`, which is **not**
 in this deposit, because they carry the OpenRouter transport, the cost model,
 the Ashokkumar archive loader and the scorer — and this repository has no ground
@@ -141,7 +141,7 @@ no effect. So there is no reason to depart from the published order.
 This is the real `ASK` block of a 7-arm Broockman cell. Reproduce it with:
 
 ```bash
-.venv/bin/python modelbench/structured_forecast.py \
+uv run forecast/run_vllm.py \
     --study broockman --mode listwise --print-prompts
 ```
 
@@ -368,7 +368,7 @@ names every cell and its `scale_flip` value.
 **For Voelkel there is no flip.** All four outcomes already point the
 pro-climate way and all ten texts push the same way
 (`voelkel_flip`, `structured_forecast.py:434-438`; source
-`ashokkumar_bench/data/voelkel2025/questionnaire.json`, field `scale_note`).
+the Voelkel 2025 questionnaire (OSF 10.17605/OSF.IO/2MCF8), field `scale_note`).
 
 **For the target megastudy there is NO flip at all.** Every prompt is written
 on the same scale that the submission uses, so `scale_flip` is `False` for all
@@ -396,7 +396,7 @@ Both are also set out in `predictions/SPEC_NOTES.md` section 7.
 **The model is sensitive to the position of an arm in the list.** At
 temperature 0, two calls that hold the same arms in a **different order**
 return different numbers. Measured over the 42 Broockman cells
-(`modelbench/output/tier3/TESTS.txt` section 6):
+(the method-search test report section 6):
 
 | Model | Self-agreement, r |
 |---|---|
@@ -525,7 +525,7 @@ makes a directory with that day's date.
 
 The measurements behind the design ran in the sibling project `modelbench` and
 are **not** reproducible from this deposit. Their scripts are
-`modelbench/tier3_index.py` (the 32-run grid) and `modelbench/tier3_tests.py`
+the method-search scorer (the 32-run grid) and the method-search test script
 (every paired test). Their outputs are quoted in full in
 [`EVIDENCE.md`](EVIDENCE.md).
 

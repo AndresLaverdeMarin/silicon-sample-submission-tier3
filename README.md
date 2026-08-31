@@ -84,16 +84,6 @@ See [`docs/EVIDENCE.md`](docs/EVIDENCE.md) sections 2 and 13.
 | [`docs/METHOD.md`](docs/METHOD.md) | **How to build this entry again from nothing.** The six prompt sections, listwise against pointwise, the sign convention, the 8-draw ensemble, the arm-order randomisation, the parser, the local vLLM settings. |
 | [`docs/EVIDENCE.md`](docs/EVIDENCE.md) | **Why this method and not another.** Every measurement, with the file that produced it. The nulls get the same space as the wins. |
 
-[`registration.md`](registration.md) answers every GUIDE-LLM item against a
-file. **Five items are still open, and each needs a person, not a run:** I.1
-(competing interests), I.3 (the signature on the blinding attestation), the
-`code_doi` and `zenodo_doi` in K.1 (they need the Zenodo release), **J.2 (a
-decision on the four preregistration breaches)** and **K.3 (a decision on the
-spend approval gap: $4.0108 of paid calls with no approval from David recorded
-on disk — it affects no submitted value, because the submitted values cost
-$0.00)**. They are marked in place. Nobody signed anything on the team's
-behalf.
-
 **One more item needs a file copy, not a decision.** `raw_data_deposit/` still
 holds six files of the superseded first pass. Replace them with the files of
 `forecast/runs/2026-08-30_B_pop_on_v2/` and

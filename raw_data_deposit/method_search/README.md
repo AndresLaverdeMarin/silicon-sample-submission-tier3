@@ -35,6 +35,10 @@ runs/openrouter_glm_deepseek/   16 runs, OpenRouter, $1.6644
     <run>/forecast.meta.json    the exact settings, the call window, the
                                 token counts, the spend, and a sha256 for
                                 every input file
+    <run>/RESULTS.txt           the run's own score report, where the run
+                                made one
+    <run>/predictions.csv       the run's per-arm means, where the run
+                                made one
 ```
 
 ## What each record holds
