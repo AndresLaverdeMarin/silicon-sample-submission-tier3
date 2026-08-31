@@ -238,7 +238,7 @@ about who took part.
 
 **The control is deposited.** The same run without the block is variant A,
 `forecast/runs/2026-08-31_A_pop_off_t050_uv/`. Its 208 rows are also written out as
-`raw_data_deposit/variantA_pop_off_T3_ate.csv`. The two variants agree at
+`raw_data_deposit/variantA_pop_off_t050_uv_T3_ate.csv`. The two variants agree at
 Pearson r = +0.9941 over the 208 cells. Full account:
 [`EVIDENCE.md`](EVIDENCE.md) section 5c.
 

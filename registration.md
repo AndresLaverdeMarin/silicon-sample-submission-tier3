@@ -35,7 +35,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 > **The runs `forecast/runs/B_pop_on/` and `forecast/runs/A_pop_off/` are SUPERSEDED.** They ran
 > before the `Extreme weather predictions` arm was cut to what one participant read
 > (`docs/METHOD.md` section 3.4). They stay on disk as a record of the first pass. **No submitted
-> value comes from them.** `raw_data_deposit/` still holds copies of that first pass; see item K.2.
+> value comes from them.** `raw_data_deposit/` no longer holds copies of that first pass; see item K.2.
 >
 > **Do not retype a value that `forecast.meta.json` already holds.** Copy it.
 >
@@ -55,7 +55,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 >
 > | Item | What is missing | Who must supply it |
 > |---|---|---|
-> | **K.2** | **`raw_data_deposit/` still holds six files of the superseded first pass.** They must be replaced with the files of `forecast/runs/2026-08-30_B_pop_on_v2/` and `forecast/runs/2026-08-30_A_pop_off_v2/`, or removed, before the Zenodo release. No submitted value comes from them. | the members named in 0.1 |
+> | ~~**K.2**~~ | ~~`raw_data_deposit/` still holds six files of the superseded first pass.~~ **CLOSED 2026-08-31: the stale files are removed; the folder now holds the submitted pair and `method_search/`.** | done |
 >
 > Every other item is closed against a file. `metadata.json` now holds the real team, the real model
 > id and the SHA-256 of the submitted prediction file.
@@ -795,15 +795,16 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   is also in `metadata.json`, field `prediction_files`, written by `make manifest` and checked by
   `make check`.
 
-  **OPEN — `raw_data_deposit/` still holds the superseded first pass.** Its
-  `forecast_primary_B_pop_on.jsonl`, `forecast_variantA_pop_off.jsonl`, `forecast.meta.json`,
-  `AUDIT_primary_B_pop_on.txt`, `AUDIT_variantA_pop_off.txt` and `COMPARE_A_vs_B.txt` are copies of
-  the runs made **before** the `Extreme weather predictions` arm was cut (`docs/METHOD.md`
-  section 3.4). **No submitted value comes from them.** Only
-  `raw_data_deposit/variantA_pop_off_T3_ate.csv` was rebuilt from the rerun. The six stale files
-  must be replaced with the files of `forecast/runs/2026-08-30_B_pop_on_v2/` and
-  `forecast/runs/2026-08-30_A_pop_off_v2/` before the Zenodo release, or removed. The table above
-  names the files that are correct today.
+  **CLOSED 2026-08-31 — `raw_data_deposit/` no longer holds the superseded first pass.** Its six
+  stale files (`forecast_primary_B_pop_on.jsonl`, `forecast_variantA_pop_off.jsonl`,
+  `forecast.meta.json`, `AUDIT_primary_B_pop_on.txt`, `AUDIT_variantA_pop_off.txt` and
+  `COMPARE_A_vs_B.txt`) are **removed**. The folder now holds the pair that produced the submitted
+  values and nothing from an earlier pass: `forecast_B_pop_on_t050_uv.jsonl`,
+  `forecast_A_pop_off_t050_uv.jsonl`, their two `.meta.json` files,
+  `AUDIT_B_pop_on_t050_uv.txt`, `AUDIT_A_pop_off_t050_uv.txt`, `COMPARE_A_vs_B_t050_uv.txt`, and
+  `variantA_pop_off_t050_uv_T3_ate.csv` — the control's 208 rows, for comparison only and **not**
+  submitted. It also holds `method_search/`, the whole method search (item J.1). The table above
+  names every file with its size and sha256.
 
   **Why the control is deposited and not submitted.** `scripts/lib/check_lib.R` lines 119-124: one
   repository holds one entry. Variant A is the control condition of the population-block test.

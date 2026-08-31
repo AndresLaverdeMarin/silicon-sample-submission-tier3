@@ -4,7 +4,7 @@
 
 This folder holds **every forecast run of the method search**, winners and
 losers together. **No value in this folder reaches the submitted predictions.**
-The submitted run is `raw_data_deposit/forecast_primary_B_pop_on_v2.jsonl`, and
+The submitted run is `raw_data_deposit/forecast_B_pop_on_t050_uv.jsonl`, and
 it is not here.
 
 It is deposited for one reason: registration item **J.1** asks how many
