@@ -1,0 +1,31 @@
+[project]
+name = "team27-tier3-forecast"
+version = "1.0.0"
+description = "team_27 Tier 3 entry: a direct effect forecast for the Silicon Sample Benchmark"
+readme = "README.md"
+requires-python = "==3.11.*"
+
+# NO RUNTIME DEPENDENCIES, ON PURPOSE.
+# Step 1 (`forecast/extract_materials.py`), step 3
+# (`forecast/build_predictions.py`) and `forecast/tests/` import the Python
+# standard library only: argparse, csv, hashlib, json, math, pathlib, random,
+# re, statistics, subprocess, sys, textwrap. So the parts of the pipeline that
+# turn materials into the submitted file need nothing installed. That is a
+# property worth keeping: a reader can rebuild `predictions/` from
+# `forecast/runs/` with a bare Python 3.11.
+dependencies = []
+
+[project.optional-dependencies]
+# Step 2 only. `forecast/run_vllm.py` runs the model on the GPU.
+# These are the EXACT versions that produced the submitted values. Installing
+# them downloads several gigabytes and needs a CUDA GPU.
+gpu = [
+    "vllm==0.19.1",
+    "transformers==5.14.1",
+    "torch==2.10.0",
+]
+
+[tool.uv]
+# The `gpu` extra is not installed by a plain `uv sync`. Ask for it:
+#     uv sync --extra gpu
+package = false
