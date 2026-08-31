@@ -4,7 +4,7 @@
 
 > # EVERY RESULT IN THIS FILE IS EXPLORATORY
 >
-> Our own preregistration, `notes/PREREG_broockman_method_search.md`, was
+> Our own preregistration of the method search was
 > written on 2026-08-29 before any configuration was scored. **The work then
 > broke four of its own rules**, so the confirmatory comparison it defined is
 > **void by its own terms**. All four breaches are declared in
@@ -70,7 +70,7 @@ The two public studies we score against:
 | `voelkel2025` | 4 | 40 | 13,821 | The **topical** match: climate, 13 items, one "for"-shaped set of texts. |
 
 `broockman` was the development set. `voelkel2025` was the confirmation set.
-Both were fixed in `notes/PREREG_broockman_method_search.md` **before the first
+Both were fixed in our own preregistration of the method search **before the first
 score**. The target megastudy was never used for selection.
 
 **A warning about n = 4.** Every Voelkel test below has only 4 cells. A paired
@@ -320,8 +320,7 @@ entry uses **one fixed sentence and 8 repeated draws** instead.
 ### 5e. What replaced the framing ensemble
 
 The literature review measured how much variance each prompt slot carries in
-the deposited gpt-4 data (`notes/LIT_structured_forecast_prompt.md`
-section 6c): the **persona** slot carries excess eta-squared of +0.113 and the
+the deposited gpt-4 data (our prompt literature review, section 6c): the **persona** slot carries excess eta-squared of +0.113 and the
 **framing** slot +0.026, so the persona carries about 4.4 times more. A direct
 forecast has no persona slot at all. That removes the one slot worth
 ensembling over. Repeated sampling of one prompt (Lippert et al. 2024, 50
@@ -563,7 +562,7 @@ Say this plainly too.
 - **We did not test whether the Voelkel gap against gpt-4 is significant.**
   With 4 cells we could not.
 - **We did not fit a calibration shrink.** The preregistration
-  (`notes/PREREG_broockman_method_search.md` section 8) specifies one, fitted
+  (the method-search preregistration, section 8) specifies one, fitted
   on the three donor studies with Broockman excluded. It was never fitted. It
   is a monotone linear map, so it cannot change a Pearson correlation or any
   ranking; it changes only the calibration slope and the RMSE. Registration
@@ -675,7 +674,7 @@ not resolve it.
 ## 13. The preregistration breaches
 
 **This section exists because the honest report of a result includes how it was
-selected.** `notes/PREREG_broockman_method_search.md` was written on
+selected.** our own preregistration of the method search was written on
 2026-08-29, before any configuration was scored. It fixed the development set,
 the held-out set, the endpoint, the statistical test and the number of
 configurations we were allowed to try. **The work then broke four of its own
@@ -731,7 +730,7 @@ outcome pair into one number:
 > the calibration regression. *Grain: 1 row = 1 intervention x outcome
 > estimate.*" - benchmark preregistration, *Analysis eligibility by tier*
 
-Section 14 computes those two analyses with the preregistration's own formulas
+Section 14 computes those two analyses with the BENCHMARK preregistration's own formulas
 (`pooled_metrics()`, `adjusted_metrics()`, `run_calibration_pooled()`). Every
 estimate is first put into **percentage points (pp) of its outcome's scale
 range**, as the benchmark requires.

@@ -313,7 +313,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
      the study and its authors, was **removed**, and `Answer with a single number and nothing else.`
      was added. Measured on 60 calls: the parse rate rose from 48.3 per cent to 91.7 per cent, and
      the model stopped answering by recall. This change is written into
-     `notes/PREREG_broockman_method_search.md` section 7b **before** the first score.
+     the method-search preregistration, section 7b **before** the first score.
   2. **2026-08-30.** A sign-convention bug was fixed. See G.2 and `docs/EVIDENCE.md` section 6.
   **Neither change was made in response to a score on the target study**, whose outcomes we have
   never seen. Both were made against public data.
@@ -349,7 +349,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   *No chain of thought.* No paper on disk measures it on direct effect-size forecasting, the three
   adjacent results are flat or down, and with thinking on the local model's parse rate collapses.
   *The prompt never names the study.* See I.4 and `docs/METHOD.md` section 7.
-  The full review behind these choices is `notes/LIT_structured_forecast_prompt.md`.
+  The full review behind these choices is our own prompt literature review.
 
 ## D · Persona / profile construction (Tiers 1–2)
 - **D.1 Profile source** — source of demographic profiles you constructed: a public survey (e.g. GSS / ANES / Census), other survey, fully synthetic, or none. The benchmark ships no participant pool; report how you built yours, incl. condition assignments:
@@ -499,7 +499,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   **None.** No scaling, no shifting, no debiasing, no clamping, no rounding beyond the decimal
   precision of the CSV, and no reweighting. The submitted `ate` values are the means of parsed model
   generations.
-  A calibration shrink **was preregistered** (`notes/PREREG_broockman_method_search.md` section 8:
+  A calibration shrink **was preregistered** (the method-search preregistration, section 8:
   an OLS fit on three donor studies with Broockman excluded, validated leave-one-study-out). **It
   was never fitted and it is not applied.** It is a monotone linear map, so it could not have
   changed a Pearson correlation or any ranking in any case; it would change only the calibration
@@ -574,7 +574,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   of our prompt held a `Study description:` block naming the study and its authors. The model
   answered it by recall: it wrote *"this is a reference to the study by Broockman and Kalla
   (2016)"* (measured 2026-08-29). **The block was removed before any configuration was scored**, and
-  the removal is recorded in `notes/PREREG_broockman_method_search.md` section 7b with its date.
+  the removal is recorded in the method-search preregistration, section 7b, with its date.
   The submitted prompt therefore **never names the target study, its authors, or the benchmark**.
   This is a guard, and it is also a selection safeguard: a method tuned on recall of a published
   result cannot transfer to an unpublished study, so keeping the block would have let us select a
@@ -593,7 +593,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   > confirmatory.
 
   **The rules were fixed in writing before the first score**, in
-  `notes/PREREG_broockman_method_search.md`, dated 2026-08-29. **They were then broken. See J.2.** That file names the development set
+  our own preregistration of the method search, dated 2026-08-29. **They were then broken. See J.2.** That file names the development set
   (`broockman`), the confirmation set (`voelkel2025`), the primary endpoint (mean within-cell
   `r_raw` over the 42 Broockman cells), the test (a paired comparison over the same 42 cells), and
   the improvement threshold. It also states that the target megastudy is never used for selection.
@@ -623,7 +623,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   result above uses the within-cell correlation of Ashokkumar et al. The benchmark does not compute
   that. It pools every intervention x outcome pair and computes ATE recovery (directional
   agreement, Spearman rho, Pearson r, noise-corrected r) and the calibration regression (alpha,
-  beta). `docs/EVIDENCE.md` section 14 recomputes the search with the preregistration's own
+  beta). `docs/EVIDENCE.md` section 14 recomputes the search with the BENCHMARK preregistration's own
   formulas. **The conclusions of this item survive the change of metric.** This closes the open
   question of `docs/EVIDENCE.md` section 8.
 
@@ -699,7 +699,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
 
   ### **DECLARATION: our own preregistration was breached in four ways. Read this before any p value in this form.**
 
-  `notes/PREREG_broockman_method_search.md` was written on 2026-08-29, before any configuration was
+  our own preregistration of the method search was written on 2026-08-29, before any configuration was
   scored. It fixed the development set, the held-out set, the endpoint, the test and the number of
   configurations. **The work that followed broke four of its own rules.** We declare all four. We do
   not soften them.
@@ -910,7 +910,7 @@ sections (B) once per model. See the call's *Disclosure policy* for escrow rules
   and call window are in its own `forecast.meta.json` under
   `raw_data_deposit/method_search/`.
 
-  **DECLARATION: the spend approval gap.** The project's own working rule, in `CLAUDE.md`, is: *"No
+  **DECLARATION: the spend approval gap.** The project's own working rule is: *"No
   paid LLM API calls without explicit approval from David"* (david.garciabecerra@gmail.com).
   **Cumulative paid spend is $5.6752 ($4.0108 to 2026-08-30, plus $1.6644 on 2026-08-31), and no
   approval from David is recorded anywhere on disk.**

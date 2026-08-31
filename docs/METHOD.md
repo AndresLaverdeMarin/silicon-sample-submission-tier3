@@ -131,7 +131,7 @@ fills the same six slots. The skeleton never changes.
 
 **Why this order.** All 504,840 prompts deposited by Ashokkumar et al. (2026)
 put the instruction first, the context next, the stimulus late, and the answer
-cue last (`notes/LIT_structured_forecast_prompt.md` section 0 and section 1).
+cue last (our prompt literature review, section 0 and section 1).
 We copy the published order. Ruan et al. (2025) is the one adjacent controlled
 test of prompt structure on an average treatment effect estimate, and it found
 no effect. So there is no reason to depart from the published order.
@@ -317,7 +317,7 @@ against each other**. A pointwise call sees one text and cannot know that the
 next text is stronger. A listwise call sees all of them and can order them.
 
 This was the largest open question in the literature review
-(`notes/LIT_structured_forecast_prompt.md` sections 2 and 9). Lippert et al.
+(our prompt literature review, sections 2 and 9). Lippert et al.
 (2024) put all 24 questions in one prompt and reached r = 0.89. Ashokkumar et
 al. used one call for each arm and reached r = 0.85. No paper on disk compares
 the two directly. So we measured it.
@@ -445,7 +445,7 @@ The first version of the prompt held a `Study description:` block that named
 the study and its authors, copied from the Ashokkumar format. The model
 answered it with recall, not with reasoning: it wrote *"this is a reference to
 the study by Broockman and Kalla (2016)"* (measured 2026-08-29,
-`notes/PREREG_broockman_method_search.md` section 7b).
+the method-search preregistration, section 7b).
 
 A method tuned on **recall of a published result cannot transfer to the target
 megastudy**, because that study is not published. Removing the block is not
