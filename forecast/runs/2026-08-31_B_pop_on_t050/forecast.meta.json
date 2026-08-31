@@ -1,0 +1,166 @@
+{
+ "method": "structured_forecast, listwise",
+ "model": "Qwen/Qwen3.8-27B",
+ "served_by": "local vLLM offline engine",
+ "study": "megastudy",
+ "mode": "listwise",
+ "population_block": true,
+ "items": "all",
+ "anchor_line": false,
+ "framings": 1,
+ "samples": 8,
+ "temperature": 0.5,
+ "top_p": 0.95,
+ "seed": 1,
+ "seed_rule": "seed + sample index",
+ "thinking": false,
+ "call_window_start": "2026-08-31T13:10:50.612845+00:00",
+ "call_window_end": "2026-08-31T13:12:41.503330+00:00",
+ "calls": 104,
+ "arms_asked": 1664,
+ "arms_parsed": 1664,
+ "parse_rate": 1.0,
+ "spend_usd": 0.0,
+ "price_table": null,
+ "price_table_source": "not applicable: local weights, no paid call",
+ "wall_clock_s": 110.9,
+ "max_model_len": 16080,
+ "gpu_memory_utilization": 0.9,
+ "mean_prompt_chars": 43292.3,
+ "longest_prompt_chars": 44401,
+ "stimulus_provenance": [
+  {
+   "path": "forecast/materials/stimuli/consensus.txt",
+   "exists": true,
+   "bytes": 3595,
+   "sha256": "f289b177bbd2a090a2c006d766c6502ea3eb32963ae3a31130da067d619a9322",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/corporate_reliance.txt",
+   "exists": true,
+   "bytes": 1843,
+   "sha256": "e562c4df07d569b65bf15e80c1197365c466d742a3853af158a3475f339bc460",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/extreme_weather_predictions.txt",
+   "exists": true,
+   "bytes": 2213,
+   "sha256": "6233027a709c3ea5c86e22a86693ecdfca559f039c3ba9d11b7bd6315243b0b7",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/former_skeptics.txt",
+   "exists": true,
+   "bytes": 2926,
+   "sha256": "905a0c03197ea61ba36791003eda4f974636298e633a719dc6f2e7b7d4fb53c0",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/funding.txt",
+   "exists": true,
+   "bytes": 4590,
+   "sha256": "0305b8dfdb3bf41e07f1716d3291151a5482238d55cd1554c654cb7ec5247905",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/high_public_trust.txt",
+   "exists": true,
+   "bytes": 788,
+   "sha256": "635a2ef1fa075bc0969fcbec12ae7cdb2d7f75831276f6eec53160aa702517f0",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/interview_prof_maraun.txt",
+   "exists": true,
+   "bytes": 1846,
+   "sha256": "5e3965c868b06aaf40d6497911e462cb3417867af0f8b75fcc847f6789cc487a",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/interview_prof_sebille.txt",
+   "exists": true,
+   "bytes": 1368,
+   "sha256": "b76c71bccdbc1650956cdc88b468d03ac18da0bdc06b47d07540e5cad460c730",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/measurement_modeling_1.txt",
+   "exists": true,
+   "bytes": 2656,
+   "sha256": "b90647bbdee826cc539f485859c1f3a71d3ff2f59a73e3cd40e94467c3de41a4",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/measurement_modeling_2.txt",
+   "exists": true,
+   "bytes": 1545,
+   "sha256": "b6644994788985fb524d341cb4e83a76a3139ba4dfc7ff94d6cbbd47aa79be5f",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/model_accuracy.txt",
+   "exists": true,
+   "bytes": 2420,
+   "sha256": "7ca70dbc9036417c32c268b7650f92c8574ec473fd15974c516b28732d151a21",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/oil_industry_misinformation.txt",
+   "exists": true,
+   "bytes": 5035,
+   "sha256": "207e9d6e634a725154e48d5668ee224ba028be0399e110b0e02bbad27e7313ee",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/peer_review.txt",
+   "exists": true,
+   "bytes": 1348,
+   "sha256": "f3ba5fa77686631050e8ef5b58f625688d34c1edd5c5873e523ef7db220022bc",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/portrait_prof_cherry.txt",
+   "exists": true,
+   "bytes": 1761,
+   "sha256": "baddb9c6864ada75d08bcdb7dc601894bbbb99aa95850a8aaaf6136f9d64dc44",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/scientist_community_helpers.txt",
+   "exists": true,
+   "bytes": 2419,
+   "sha256": "49ad70d90e25291d49d09ec98c80180296c2b850b29888167a903de71003d9b2",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli/social_justice.txt",
+   "exists": true,
+   "bytes": 1369,
+   "sha256": "a7e5ae05db7b458c824639040d0ca4c5c7cca0f25b286a366c9e94d334cdf04d",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/outcomes.json",
+   "exists": true,
+   "bytes": 14541,
+   "sha256": "a98caa2ae3e1c4013ebee389acb4e2d275c907ccb4148e09e3953ed17ae07505",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/stimuli_index.json",
+   "exists": true,
+   "bytes": 807,
+   "sha256": "8be0da5d39e55948d09d272b3ab41bef293c9039448a8d766220302e2678d668",
+   "git_tracked": true
+  },
+  {
+   "path": "forecast/materials/quotas_18000.csv",
+   "exists": true,
+   "bytes": 390,
+   "sha256": "1383a768d5f4e3f8a2c22ccf18b1899eb6fbc7c3716cdfd18ccb3befb98e8028",
+   "git_tracked": true
+  }
+ ]
+}
