@@ -713,3 +713,201 @@ prompt that shipped.
 **A human must decide what to do about this before the lock**, and the choice
 is stated in `registration.md` item J.2: keep the entry with the declaration
 attached, or re-run the preregistered test as written.
+
+---
+
+## 14. The benchmark's own Tier 3 metrics — how you ask, and which model
+
+*Added 2026-08-31. Every number here comes from
+`raw_data_deposit/method_search/`, which holds all 80 runs. It answers the
+OPEN QUESTION of section 8.*
+
+Sections 1 to 13 score with the **within-cell** correlation of Ashokkumar et
+al. **That is not what this benchmark computes.** A Tier 3 entry is eligible
+for exactly two preregistered analyses, and both **pool** every intervention x
+outcome pair into one number:
+
+> "Tier 3 - Average treatment effect predictions. Eligible for ATE recovery and
+> the calibration regression. *Grain: 1 row = 1 intervention x outcome
+> estimate.*" - benchmark preregistration, *Analysis eligibility by tier*
+
+Section 14 computes those two analyses with the preregistration's own formulas
+(`pooled_metrics()`, `adjusted_metrics()`, `run_calibration_pooled()`). Every
+estimate is first put into **percentage points (pp) of its outcome's scale
+range**, as the benchmark requires.
+
+**The six metrics.** `dir %` is the share of pairs where the predicted effect
+has the same SIGN as the human effect. `Spearman rho` is the rank correlation.
+**`Pearson r` is the benchmark's key metric.** `r adj` corrects it for the
+sampling noise in the human effects. `RMSE` is the average size of the errors
+in pp; read it against the "no effect anywhere" null. `alpha` and `beta` are
+the calibration intercept and slope, perfect at 0 and 1.
+
+---
+
+### 14.1 THE MAIN FINDING — how you ASK beats which model you ask
+
+Same model, same temperature (1.0), same 8 draws, same six-slot prompt. The
+only thing that changes is whether the model sees **all arms of a cell in one
+call** (`listwise`) or **one arm for each call** (`pointwise`).
+
+| archive | model | mode | dir % | Spearman rho | **Pearson r** | r adj | RMSE pp |
+|---|---|---|---|---|---|---|---|
+| broockman | Qwen3.8-27B | **listwise** | **80.8** | **+0.5640** | **+0.5076** | **+0.6083** | **5.208** |
+| | | pointwise | 77.9 | +0.3430 | +0.3585 | +0.4297 | 5.579 |
+| broockman | qwen3.8-27b | **listwise** | **82.0** | **+0.5155** | **+0.4620** | **+0.5537** | **5.320** |
+| | | pointwise | 79.1 | +0.3512 | +0.3237 | +0.3879 | 5.650 |
+| broockman | qwen3.8-flash | **listwise** | **80.8** | **+0.4878** | **+0.4226** | **+0.5065** | **5.838** |
+| | | pointwise | 77.3 | +0.4665 | +0.3713 | +0.4450 | 7.808 |
+| voelkel2025 | Qwen3.8-27B | **listwise** | 85.0 | +0.4968 | **+0.5359** | **+0.5824** | 1.175 |
+| | | pointwise | 85.0 | +0.5052 | +0.4878 | +0.5302 | **1.052** |
+| voelkel2025 | qwen3.8-27b | **listwise** | 85.0 | **+0.5193** | **+0.5516** | **+0.5995** | 1.168 |
+| | | pointwise | 85.0 | +0.4474 | +0.4515 | +0.4907 | **1.090** |
+| voelkel2025 | qwen3.8-flash | **listwise** | **82.5** | +0.4432 | **+0.4409** | **+0.4792** | 1.393 |
+| | | pointwise | 80.0 | +0.5539 | +0.3774 | +0.4102 | **1.311** |
+
+**Listwise wins Pearson r in 6 of 6 comparisons.** Three models, two archives,
+no exception. The mean gain is **+0.113 on Broockman and +0.071 on Voelkel**,
+**+0.092 over all six.** On Broockman listwise wins EVERY metric for all three
+models.
+
+**Two honest limits.** On Voelkel, pointwise has the better RMSE in all three
+comparisons: asking about one arm at a time gives better-SIZED effects.
+Pointwise also wins Spearman rho in 2 of 3 there. So listwise improves the
+LINEAR agreement and does not improve the ORDERING.
+
+**Why this is the finding, and the model ranking is not.** The direction of the
+listwise effect is the same in every comparison we made. The direction of the
+model effect is not: `Gemma4-26B` wins Voelkel and loses both Doell and
+Broockman (section 14.2). A design choice that points the same way across every
+model and every archive is a result. A model ranking that reverses by archive
+is a local fact about that archive.
+
+**This is why the entry is listwise.** It is the one factor of the search that
+behaved the same way everywhere.
+
+---
+
+### 14.2 The models — all seven, on three public archives
+
+All runs below are `listwise`, temperature 0.5, 8 draws, seed 1, reasoning off.
+The submission model is marked.
+
+**voelkel2025 - 10 interventions x 4 outcomes = 40 pairs**
+*(human effect SD 1.020 pp, mean human standard error 0.397 pp)*
+
+| model | served by | dir % | Spearman rho | Pearson r | r adj | RMSE pp | alpha | beta |
+|---|---|---|---|---|---|---|---|---|
+| Gemma4-26B | local vLLM | 80.0 | **+0.6310** | **+0.5898** | **+0.6410** | **0.888** | +0.343 | +0.647 |
+| **Qwen3.8-27B** *(submitted)* | local vLLM | 85.0 | +0.5832 | +0.5884 | +0.6395 | 1.111 | +0.551 | +0.456 |
+| qwen3.8-flash | OpenRouter | 80.0 | +0.5975 | +0.5539 | +0.6020 | 1.386 | +0.627 | +0.358 |
+| deepseek-v4-flash | OpenRouter | 85.0 | +0.4914 | +0.4571 | +0.4968 | 0.937 | +0.476 | **+0.756** |
+| glm-5.3-flash | OpenRouter | **87.5** | +0.4727 | +0.4434 | +0.4819 | 0.942 | +0.467 | +0.623 |
+| Gemma4-E4B | local vLLM | 82.5 | +0.4021 | +0.4242 | +0.4611 | 9.585 | +0.619 | +0.070 |
+| mean of 3 local models | — | 80.0 | +0.5217 | +0.4949 | +0.5379 | 3.541 | +0.494 | +0.190 |
+| gpt-4, published | — | — | +0.6615 | +0.6957 | +0.7561 | — | — | — |
+| **null: no effect anywhere** | — | 0.0 | — | — | — | **1.597** | — | — |
+
+**doell - 11 interventions x 2 outcomes = 22 pairs**
+*(human effect SD 1.706 pp, mean human standard error 1.539 pp)*
+
+| model | dir % | Spearman rho | Pearson r | r adj | RMSE pp | alpha | beta |
+|---|---|---|---|---|---|---|---|
+| **Qwen3.8-27B** *(submitted)* | 100.0 | **+0.5280** | **+0.5572** | *1.0000* | 2.376 | +1.800 | **+1.065** |
+| mean of 3 local models | 100.0 | +0.4478 | +0.4972 | *1.0000* | 2.260 | +1.731 | +1.003 |
+| Gemma4-E4B | 100.0 | +0.2897 | +0.3296 | *0.7836* | **1.937** | +2.717 | +0.381 |
+| Gemma4-26B | 95.5 | +0.2885 | +0.3082 | *0.7327* | 3.057 | +3.160 | +0.584 |
+| gpt-4, published | — | +0.3992 | +0.4374 | *1.0000* | — | — | — |
+| human experts, published | — | +0.4692 | +0.4960 | *1.0000* | — | — | — |
+| **null: no effect anywhere** | 0.0 | — | — | — | **4.299** | — | — |
+
+*No hosted-model run exists on Doell. `r adj` is in italics because it is
+DEGENERATE here, not excellent: Doell's sampling noise is 2.09 times its true
+signal, so the correction divides by a nearly vanished variance and clips at
+1.0000. Read the raw correlation only. Doell's `dir %` is also empty of
+information: all 11 human effects are positive, so "everything helps" scores
+100 per cent for free.*
+
+**broockman - 172 messages x 1 outcome = 172 pairs**
+*(human effect SD 5.900 pp, mean human standard error 3.229 pp)*
+
+| model | served by | dir % | Spearman rho | Pearson r | r adj | RMSE pp | alpha | beta |
+|---|---|---|---|---|---|---|---|---|
+| **Qwen3.8-27B** *(submitted)* | local vLLM | 79.7 | +0.4678 | **+0.4641** | **+0.5562** | **5.373** | −1.956 | +1.798 |
+| glm-5.3-flash | OpenRouter | 79.7 | +0.3978 | +0.4280 | +0.5130 | 5.484 | −1.798 | **+1.097** |
+| qwen3.8-flash | OpenRouter | **80.2** | **+0.4876** | +0.4178 | +0.5007 | 5.854 | **−0.947** | +0.773 |
+| deepseek-v4-flash | OpenRouter | 79.7 | +0.3207 | +0.3596 | +0.4310 | 5.527 | −1.664 | +1.321 |
+| Gemma4-26B | local vLLM | 75.0 | +0.3659 | +0.2919 | +0.3498 | 6.137 | +1.178 | +0.471 |
+| mean of 3 local models | — | 72.7 | +0.2482 | +0.2184 | +0.2617 | 6.481 | +1.991 | +0.323 |
+| Gemma4-E4B | local vLLM | 69.8 | +0.1742 | +0.0946 | +0.1134 | 10.602 | +3.163 | +0.063 |
+| gpt-4, published | — | — | +0.2816 | +0.2329 | +0.2791 | — | — | — |
+| human experts, published | — | — | +0.1253 | +0.1486 | +0.1780 | — | — | — |
+| **null: no effect anywhere** | — | 0.0 | — | — | — | **6.884** | — | — |
+
+**What the model table says.**
+
+1. **The submission model wins two of the three archives** and is second on
+   the third by 0.0014, which is a tie.
+2. **It beats published gpt-4 and the human expert forecasters on both
+   archives where those baselines exist.** Broockman: +0.4641 against +0.2329
+   and +0.1486. Doell: +0.5572 against +0.4374 and +0.4960. On Voelkel it is
+   behind gpt-4 (+0.6957).
+3. **No model wins everywhere.** `Gemma4-26B` is first on Voelkel and next to
+   last on Doell. That reversal is the reason we do not read a model ranking
+   as a finding.
+4. **The mean of three models is never the best on any archive**, and on
+   Voelkel its RMSE (3.541 pp) is worse than predicting no effect at all
+   (1.597 pp). One model in that average, `Gemma4-E4B`, overshoots by about 14
+   times, and a plain mean gives it a third of the weight. **We do not submit
+   an ensemble.**
+5. **A second seed does not change the winner** on any archive. The second
+   seed of every local run is in `raw_data_deposit/method_search/`.
+
+---
+
+### 14.3 Reasoning ON — 12 runs, and why it is not used
+
+`Qwen3.8-27B` at `reasoning_effort = xhigh` (its highest; its ladder is `low`,
+`medium`, `xhigh`, and there is no `high`) and both Gemma models with
+`enable_thinking = true`.
+
+**It improved the calibration of every model on every archive**, with no
+exception: every `alpha` moved toward 0 and every `beta` toward 1.
+`Gemma4-26B` with reasoning is the only configuration we have measured whose
+`alpha` interval contains 0 AND whose `beta` interval contains 1, on both
+archives.
+
+**It produced no new best score on either archive.** The best Pearson r on
+Voelkel (+0.6439) and on Broockman (+0.4706) both come from runs with
+reasoning OFF.
+
+**Its effect on accuracy reverses by archive for the same model.** Reasoning
+lifts `Qwen3.8-27B` on all six Voelkel metrics and lowers it on all six
+Broockman metrics.
+
+**It is not affordable.** `Qwen3.8-27B` wrote 3,900,296 output tokens for 336
+Broockman calls, **408 times** the 9,567 of the same calls without reasoning,
+in 80.8 minutes against 0.64. 7 of 32 Voelkel calls ran past a 20,480-token
+budget and are recorded unparsed, a 78.1 per cent parse rate, the worst in the
+project.
+
+**Reasoning is a calibration fix, and calibration is the cheaper problem.** A
+linear rescale does the same work for nothing and cannot change a correlation.
+Its catch is that a rescale needs the human answers, and the target study is
+sealed.
+
+---
+
+### 14.4 What is deposited, and what is not
+
+`raw_data_deposit/method_search/` holds **all 80 runs** — 74 scored
+configurations and 6 smoke tests — with an `INDEX.csv` and a sha256 for each
+file. 1.68 MB gzipped. Its `README.md` states the one important limit:
+**the verbatim replies were not kept.** The pipeline parses each reply to
+numbers and stores the text only when the parse was incomplete, cut to 400
+characters — 1.0 to 1.9 per cent of records. The deposit says what each model
+ANSWERED for every arm of every draw. It does not say what each model SAID.
+
+**Everything in section 14 is EXPLORATORY.** See item J.2 of the registration
+form. The measurements are real and reproducible. The inference is not
+confirmatory.
